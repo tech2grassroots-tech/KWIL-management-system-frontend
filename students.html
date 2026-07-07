@@ -312,13 +312,17 @@
         <input id="newPhone" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="08012345678"/>
       </div>
       <div>
-        <label class="font-label-md text-label-md text-on-surface block mb-xs">Cohort</label>
-        <input id="newCohort" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="Cohort 2026"/>
-      </div>
+  <label class="font-label-md text-label-md text-on-surface block mb-xs">Cohort</label>
+  <select id="newCohort" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm bg-white">
+    <option value="">Select cohort...</option>
+  </select>
+</div>
       <div>
-        <label class="font-label-md text-label-md text-on-surface block mb-xs">Course</label>
-        <input id="newCourse" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="Frontend Development"/>
-      </div>
+  <label class="font-label-md text-label-md text-on-surface block mb-xs">Course</label>
+  <select id="newCourse" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm bg-white">
+    <option value="">Select course...</option>
+  </select>
+</div>
       <div class="flex gap-md pt-sm">
         <button type="button" onclick="document.getElementById('addStudentModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">
           Cancel
@@ -503,7 +507,43 @@
     renderTable(filtered);
     renderMobileCards(filtered);
   });
+  async function loadCatalog() {
+  try {
+    const [cohortsRes, coursesRes] = await Promise.all([
+      fetch(`${API_URL}/catalog/cohorts`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      fetch(`${API_URL}/catalog/courses`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    ]);
 
+    const [cohortsData, coursesData] = await Promise.all([
+      cohortsRes.json(),
+      coursesRes.json(),
+    ]);
+
+    // Populate cohort dropdown
+    const cohortSelect = document.getElementById('newCohort');
+    (cohortsData.cohorts || []).forEach(c => {
+      const option = document.createElement('option');
+      option.value = c.name;
+      option.textContent = `${c.name} (${c.status})`;
+      cohortSelect.appendChild(option);
+    });
+
+    // Populate course dropdown
+    const courseSelect = document.getElementById('newCourse');
+    (coursesData.courses || []).forEach(c => {
+      const option = document.createElement('option');
+      option.value = c.name;
+      option.textContent = c.name;
+      courseSelect.appendChild(option);
+    });
+  } catch (err) {
+    console.error("Failed to load catalog:", err);
+  }
+}
   // View student
   function viewStudent(userId) {
     window.location.href = `student-profile.html?id=${userId}`;
@@ -593,5 +633,6 @@
   }
 
   loadStudents();
+loadCatalog();
 </script>
 </body></html>
