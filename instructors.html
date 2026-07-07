@@ -382,10 +382,14 @@ Add Instructor
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        document.getElementById('addInstructorModal').classList.add('hidden');
-        document.getElementById('addInstructorForm').reset();
-        loadInstructors();
-      } else {
+  const data = await res.json();
+  document.getElementById('addInstructorModal').classList.add('hidden');
+  document.getElementById('addInstructorForm').reset();
+  
+  alert(` Instructor created successfully!\n\nTemporary Password: ${data.defaultPassword}\n\nShare this password with the instructor.`);
+  
+  loadInstructors();
+}else {
         const data = await res.json();
         alert(data.message || "Failed to add instructor");
       }
