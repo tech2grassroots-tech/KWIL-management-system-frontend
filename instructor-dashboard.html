@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Instructor Dashboard | Kwara Innovation Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-border {
+            border-left: 4px solid #feae2c;
+        }
+        body {
+            background-color: #f8f9ff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        @media (max-width: 768px) {
+            .mobile-safe-bottom {
+                padding-bottom: 80px;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#c4c7c9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bbc7df",
+                    "secondary-container": "#feae2c",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-container": "#6b4500",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3c475b",
+                    "surface-variant": "#d3e4fe",
+                    "on-surface-variant": "#45474c",
+                    "outline": "#75777d",
+                    "on-background": "#0b1c30",
+                    "secondary": "#835500",
+                    "on-tertiary-fixed-variant": "#444749",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary-container": "#818486",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c5c6cd",
+                    "surface-container": "#e5eeff",
+                    "secondary-fixed-dim": "#ffb955",
+                    "on-primary-container": "#79849b",
+                    "surface-container-high": "#dce9ff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#eff4ff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-bright": "#f8f9ff",
+                    "inverse-surface": "#213145",
+                    "primary": "#000000",
+                    "secondary-fixed": "#ffddb4",
+                    "surface-tint": "#535f74",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d7e3fc",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#191c1e",
+                    "surface": "#f8f9ff",
+                    "on-secondary-fixed": "#291800",
+                    "on-secondary-fixed-variant": "#633f00",
+                    "on-tertiary-fixed": "#191c1e",
+                    "primary-container": "#101c2e",
+                    "on-error": "#ffffff",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#e0e3e5",
+                    "inverse-primary": "#bbc7df",
+                    "on-primary-fixed": "#101c2e",
+                    "background": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "2xl": "48px",
+                    "3xl": "64px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "container-max": "1440px",
+                    "lg": "24px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["Inter"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- Navigation Drawer (Desktop Sidebar) -->
+<aside class="hidden md:flex fixed h-full w-[280px] left-0 top-0 border-r border-outline-variant bg-surface flex-col py-lg z-50">
+<div class="px-md mb-xl flex flex-col items-start">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Kwara Innovation Lab</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Instructor portal</p>
+</div>
+<nav class="flex-1 space-y-base">
+<!-- Dashboard (Active) -->
+<a class="flex items-center gap-md px-md py-sm text-primary font-bold border-l-4 border-secondary-container hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="instructor-assignments.html">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Assignments</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="instructor-attendance.html">
+  <span class="material-symbols-outlined">fact_check</span>
+  <span class="font-label-md text-label-md">Attendance Review</span>
+</a>
+</nav>
+<div class="mt-auto px-md pt-lg border-t border-outline-variant">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<button id="logoutBtn" class="flex items-center gap-md px-md py-sm text-error hover:bg-error-container/20 transition-colors w-full rounded-lg mt-sm">
+  <span class="material-symbols-outlined">logout</span>
+  <span class="font-label-md text-label-md">Logout</span>
+</button>
+<div class="mt-md flex items-center gap-sm px-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">
+  <span id="sidebarInitials">--</span>
+</div>
+<div>
+  <p id="sidebarName" class="font-label-md text-label-md text-on-surface truncate max-w-[140px]">Loading...</p>
+  <p class="text-[10px] text-on-surface-variant">Instructor</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas Area -->
+<main class="md:ml-[280px] min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="sticky top-0 w-full z-40 flex justify-between items-center h-20 px-md md:px-lg bg-surface-bright border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-sm">
+<button class="md:hidden hover:bg-surface-container rounded-full p-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h2 id="welcomeName" class="font-headline-md text-headline-md md:text-headline-lg font-black text-primary">Dashboard Overview</h2>
+</div>
+<div class="flex items-center gap-md">
+<button class="hover:bg-surface-container rounded-full p-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<div class="hidden sm:block">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">Active Cohort: 2024-B</span>
+</div>
+</div>
+</header>
+<!-- Content Body -->
+<div class="flex-1 p-md md:p-xl space-y-lg mobile-safe-bottom">
+<!-- Assigned Cohort Summary (Bento-style Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Main Stats Card -->
+<div class="md:col-span-2 glass-card rounded-xl p-lg shadow-sm flex flex-col justify-between border-l-4 border-primary-container">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Data Science Cohort B</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Progress toward Mid-Term Milestone</p>
+</div>
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between font-label-md text-label-md">
+  <span>Assigned Students Progress</span>
+  <span id="cohortProgressText">0% Complete</span>
+</div>
+<div class="w-full h-[12px] bg-surface-container-highest rounded-full overflow-hidden">
+  <div id="cohortProgress" class="h-full bg-secondary-container transition-all duration-1000" style="width: 0%"></div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-sm mt-lg pt-lg border-t border-outline-variant">
+<div>
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Students</p>
+<p id="totalStudents" class="font-headline-sm text-headline-sm text-primary">—</p>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Active Students</p>
+<p id="activeStudents" class="font-headline-sm text-headline-sm text-primary">—</p>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Avg. Progress</p>
+<p id="avgProgress" class="font-headline-sm text-headline-sm text-primary">—</p>
+</div>
+</div>
+</div>
+<!-- Quick Insight Card -->
+<div class="bg-primary-container text-on-primary rounded-xl p-lg shadow-sm flex flex-col">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-secondary-fixed-dim">warning</span>
+<h4 class="font-label-md text-label-md font-bold uppercase tracking-widest text-on-primary-fixed-variant">Critical Tasks</h4>
+</div>
+<ul class="space-y-md flex-1">
+<li class="flex items-start gap-sm">
+  <span class="w-2 h-2 rounded-full bg-secondary-container mt-1.5 shrink-0"></span>
+  <p class="font-body-sm text-body-sm"><span id="atRiskCount">0</span> students below 60% progress.</p>
+</li>
+<li class="flex items-start gap-sm">
+<span class="w-2 h-2 rounded-full bg-secondary-container mt-1.5 shrink-0"></span>
+<p class="font-body-sm text-body-sm">Schedule 1-on-1 session for students under 60%.</p>
+</li>
+</ul>
+<button class="mt-xl w-full bg-secondary-container text-on-secondary-container py-2 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+                        View All Tasks
+                    </button>
+</div>
+</section>
+<!-- Announcements and Attendance Summary -->
+<section class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
+  <div class="glass-card rounded-xl shadow-sm border border-outline-variant p-lg">
+    <div class="flex items-center justify-between mb-md">
+      <div>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">Announcements</h3>
+        <p class="text-body-sm text-on-surface-variant">Latest notices from administration.</p>
+      </div>
+    </div>
+    <div id="announcementCards" class="space-y-md">
+      <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Loading announcements...</div>
+    </div>
+  </div>
+  <div class="glass-card rounded-xl shadow-sm border border-outline-variant p-lg">
+    <div class="flex items-center justify-between mb-md">
+      <div>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">Attendance</h3>
+        <p class="text-body-sm text-on-surface-variant">Recent attendance sessions for your cohort.</p>
+      </div>
+    </div>
+    <div id="attendanceCards" class="space-y-md">
+      <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Loading attendance sessions...</div>
+    </div>
+  </div>
+</section>
+<!-- Students & Progress Table Section -->
+<section class="glass-card rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Student Performance</h3>
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg bg-surface-container-low border border-outline-variant focus:border-primary-container focus:ring-0 text-body-sm font-body-sm" placeholder="Search students..." type="text"/>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Student Name</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Status</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Current Progress</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="studentsTableBody"></tbody>
+</table>
+</div>
+<div class="px-lg py-sm bg-surface-container-lowest text-center">
+<button class="text-secondary font-label-md text-label-md hover:underline">View All Students</button>
+</div>
+</section>
+</div>
+
+</main>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-24 right-6 md:bottom-10 md:right-10 w-14 h-14 rounded-full bg-secondary-container text-on-secondary-container shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50 group" id="post-assignment-fab">
+<span class="material-symbols-outlined text-3xl">add_task</span>
+<span class="absolute right-full mr-4 bg-primary-container text-on-primary px-3 py-1 rounded-md text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">Post New Assignment</span>
+</button>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="fixed bottom-0 w-full md:hidden rounded-t-xl bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-4 pb-safe z-50">
+<a class="flex flex-col items-center justify-center text-secondary-fixed-dim bg-primary-container rounded-xl px-4 py-1 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm-mobile">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm-mobile">Students</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-sm text-label-sm-mobile">Courses</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm-mobile">Account</span>
+</a>
+</nav>
+
+<!-- Simple Interaction Script -->
+<script>
+  const API_URL = "https://kwil-management-system-backend.onrender.com/api";
+  const getToken = () => localStorage.getItem("kil_token");
+  const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
+
+  // Protect page — only INSTRUCTOR can access
+  const user = getUser();
+  const token = getToken();
+  if (!token || !user || user.role !== "INSTRUCTOR") {
+    window.location.href = "index.html";
+  }
+
+  // Load instructor dashboard
+  async function loadDashboard() {
+    try {
+      const [studentsRes, announcementsRes, attendanceRes] = await Promise.all([
+        fetch(`${API_URL}/instructor/students`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/instructor/announcements`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/instructor/attendance-sessions`, { headers: { Authorization: `Bearer ${token}` } }),
+      ]);
+
+      const [studentsData, announcementsData, attendanceData] = await Promise.all([
+        studentsRes.json(),
+        announcementsRes.json(),
+        attendanceRes.json(),
+      ]);
+
+      const students = studentsData.students || [];
+      const announcements = announcementsData.announcements || [];
+      const attendanceSessions = attendanceData.sessions || [];
+
+      renderSidebar();
+      renderStats(students);
+      renderTable(students);
+      renderAnnouncements(announcements);
+      renderAttendance(attendanceSessions);
+    } catch (err) {
+      console.error("Failed to load dashboard:", err);
+      document.getElementById('announcementCards').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load announcements.</div>`;
+      document.getElementById('attendanceCards').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load attendance sessions.</div>`;
+    }
+  }
+
+  function renderSidebar() {
+    const firstName = user.fullName.split(" ")[0];
+    document.getElementById('sidebarName').textContent = user.fullName;
+    document.getElementById('welcomeName').textContent = `Welcome, ${firstName}`;
+    document.getElementById('sidebarInitials').textContent =
+      user.fullName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+  }
+
+  function getProgressLabel(progress) {
+    if (progress >= 80) return { label: "Top Performer", class: "bg-green-100 text-green-700" };
+    if (progress >= 60) return { label: "On Track", class: "bg-surface-container text-on-surface-variant" };
+    return { label: "At Risk", class: "bg-error-container text-on-error-container" };
+  }
+
+  function getInitials(name) {
+    return name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+  }
+
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("en-GB", {
+      day: "numeric", month: "short", year: "numeric"
+    });
+  }
+
+  function renderStats(students) {
+    const total = students.length;
+    const active = students.filter(s => s.user.status === "ACTIVE").length;
+    const avgProgress = total
+      ? Math.round(students.reduce((sum, s) => sum + (s.progress || 0), 0) / total)
+      : 0;
+    const atRisk = students.filter(s => (s.progress || 0) < 60).length;
+
+    document.getElementById('totalStudents').textContent = total;
+    document.getElementById('activeStudents').textContent = active;
+    document.getElementById('avgProgress').textContent = avgProgress + "%";
+    document.getElementById('atRiskCount').textContent = atRisk;
+    document.getElementById('cohortProgress').style.width = `${avgProgress}%`;
+    document.getElementById('cohortProgressText').textContent = `${avgProgress}% Complete`;
+  }
+
+  function renderTable(students) {
+    const tbody = document.getElementById('studentsTableBody');
+
+    if (!students.length) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="4" class="px-lg py-xl text-center text-outline font-body-sm">
+            No students assigned to you yet
+          </td>
+        </tr>`;
+      return;
+    }
+
+    tbody.innerHTML = students.map(s => {
+      const progress = s.progress || 0;
+      const badge = getProgressLabel(progress);
+      const progressColor = progress >= 60 ? "bg-secondary-container" : "bg-error";
+
+      return `
+        <tr class="hover:bg-surface-container-low transition-colors group">
+          <td class="px-lg py-md">
+            <div class="flex items-center gap-md">
+              <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center font-bold text-secondary-container text-sm">
+                ${getInitials(s.user.fullName)}
+              </div>
+              <div>
+                <p class="font-label-md text-label-md text-on-surface">${s.user.fullName}</p>
+                <p class="text-[12px] text-on-surface-variant">${s.user.email}</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-lg py-md">
+            <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${badge.class}">
+              ${badge.label}
+            </span>
+          </td>
+          <td class="px-lg py-md">
+            <div class="flex items-center gap-md">
+              <div class="flex-1 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+                <div class="h-full ${progressColor} rounded-full" style="width: ${progress}%"></div>
+              </div>
+              <span class="text-body-sm font-label-md text-on-surface">${progress}%</span>
+            </div>
+          </td>
+          <td class="px-lg py-md text-right">
+            <button onclick="updateProgress('${s.id}', ${progress})"
+              class="px-md py-xs bg-primary text-on-primary rounded-lg font-label-sm hover:opacity-90 transition-all">
+              Update Progress
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function renderAnnouncements(announcements) {
+    const announcementCards = document.getElementById('announcementCards');
+    if (!announcements || !announcements.length) {
+      announcementCards.innerHTML = `
+        <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">No announcements available yet.</div>`;
+      return;
+    }
+
+    announcementCards.innerHTML = announcements.slice(0, 3).map(item => `
+      <article class="p-lg rounded-3xl bg-white border border-outline-variant shadow-sm">
+        <div class="flex items-center justify-between gap-sm mb-sm">
+          <div>
+            <h5 class="font-label-md text-primary">${item.title}</h5>
+            <p class="text-label-sm text-on-surface-variant">${formatDate(item.createdAt)}</p>
+          </div>
+          <span class="text-label-sm text-secondary-container font-bold uppercase">Announcement</span>
+        </div>
+        <p class="text-body-sm text-on-surface-variant">${item.message}</p>
+      </article>`).join('');
+  }
+
+  function renderAttendance(sessions) {
+    const attendanceCards = document.getElementById('attendanceCards');
+    if (!sessions || !sessions.length) {
+      attendanceCards.innerHTML = `
+        <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">No attendance sessions have been recorded yet.</div>`;
+      return;
+    }
+
+    attendanceCards.innerHTML = sessions.slice(0, 3).map(session => `
+      <div class="p-lg rounded-3xl bg-white border border-outline-variant shadow-sm">
+        <div class="flex items-center justify-between gap-sm mb-sm">
+          <div>
+            <h5 class="font-label-md text-primary">${session.title || session.course || 'General Session'}</h5>
+            <p class="text-label-sm text-on-surface-variant">${formatDate(session.date)} · ${session.course || session.cohort || 'All cohorts'}</p>
+          </div>
+          <span class="text-label-sm text-tertiary-container bg-tertiary-fixed px-3 py-1 rounded-full uppercase">Attendance</span>
+        </div>
+        <p class="text-body-sm text-on-surface-variant">${session.notes || 'No special note provided.'}</p>
+      </div>`).join('');
+  }
+
+  // Update progress modal
+  function updateProgress(studentId, currentProgress) {
+    document.getElementById('progressStudentId').value = studentId;
+    document.getElementById('progressInput').value = currentProgress;
+    document.getElementById('progressModal').classList.remove('hidden');
+  }
+
+  async function submitProgress(e) {
+    e.preventDefault();
+    const studentId = document.getElementById('progressStudentId').value;
+    const progress = parseInt(document.getElementById('progressInput').value);
+    const btn = document.getElementById('progressBtn');
+
+    btn.disabled = true;
+    btn.textContent = "Updating...";
+
+    try {
+      const res = await fetch(`${API_URL}/instructor/students/${studentId}/progress`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ progress }),
+      });
+
+      if (res.ok) {
+        document.getElementById('progressModal').classList.add('hidden');
+        loadDashboard();
+      } else {
+        const data = await res.json();
+        alert(data.message || "Failed to update progress");
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Update";
+    }
+  }
+
+  // Search
+  document.querySelector('input[type="text"]')?.addEventListener('input', async (e) => {
+    const query = e.target.value.toLowerCase();
+    const res = await fetch(`${API_URL}/instructor/students`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    const filtered = (data.students || []).filter(s =>
+      s.user.fullName.toLowerCase().includes(query) ||
+      s.user.email.toLowerCase().includes(query)
+    );
+    renderTable(filtered);
+  });
+
+  // Logout
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem("kil_token");
+    localStorage.removeItem("kil_user");
+    window.location.href = "index.html";
+  });
+
+  // Mobile sidebar toggle
+  const menuBtn = document.querySelector('header button');
+  const sidebar = document.querySelector('aside');
+  menuBtn?.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('flex');
+  });
+
+  // Smooth entrance for cards
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.glass-card, .bg-primary-container');
+    cards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        card.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 100 * index);
+    });
+  });
+
+  loadDashboard();
+</script>
+<!-- Update Progress Modal -->
+<div id="progressModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">Update Progress</h3>
+      <button onclick="document.getElementById('progressModal').classList.add('hidden')"
+        class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form onsubmit="submitProgress(event)" class="space-y-md">
+      <input type="hidden" id="progressStudentId"/>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">
+          Progress (0 - 100)
+        </label>
+        <input id="progressInput" type="number" min="0" max="100" required
+          class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm"/>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button"
+          onclick="document.getElementById('progressModal').classList.add('hidden')"
+          class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">
+          Cancel
+        </button>
+        <button type="submit" id="progressBtn"
+          class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</body></html>

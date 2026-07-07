@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kwara Innovation Lab | Admin Dashboard</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#c4c7c9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bbc7df",
+                    "secondary-container": "#feae2c",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-container": "#6b4500",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3c475b",
+                    "surface-variant": "#d3e4fe",
+                    "on-surface-variant": "#45474c",
+                    "outline": "#75777d",
+                    "on-background": "#0b1c30",
+                    "secondary": "#835500",
+                    "on-tertiary-fixed-variant": "#444749",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary-container": "#818486",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c5c6cd",
+                    "surface-container": "#e5eeff",
+                    "secondary-fixed-dim": "#ffb955",
+                    "on-primary-container": "#79849b",
+                    "surface-container-high": "#dce9ff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#eff4ff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-bright": "#f8f9ff",
+                    "inverse-surface": "#213145",
+                    "primary": "#000000",
+                    "secondary-fixed": "#ffddb4",
+                    "surface-tint": "#535f74",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d7e3fc",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#191c1e",
+                    "surface": "#f8f9ff",
+                    "on-secondary-fixed": "#291800",
+                    "on-secondary-fixed-variant": "#633f00",
+                    "on-tertiary-fixed": "#191c1e",
+                    "primary-container": "#101c2e",
+                    "on-error": "#ffffff",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#e0e3e5",
+                    "inverse-primary": "#bbc7df",
+                    "on-primary-fixed": "#101c2e",
+                    "background": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "2xl": "48px",
+                    "3xl": "64px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "container-max": "1440px",
+                    "lg": "24px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["Inter"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        
+        /* Custom scrollbar for data tables */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-card-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(254, 174, 44, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- Sidebar / Navigation Drawer (Desktop) -->
+<aside class="fixed h-full w-[280px] left-0 top-0 border-r border-outline-variant bg-surface hidden md:flex flex-col py-lg z-50" id="main-nav">
+<div class="px-md mb-xl flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary-container rounded-lg overflow-hidden flex items-center justify-center">
+  <img src="/frontend-kwil/images/background.png" alt="Kwara Innovation Lab logo" class="w-full h-full object-contain bg-white" />
+</div>
+<div>
+<h1 class="font-headline-md text-headline-sm font-bold text-primary">Kwara Innovation Lab</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Admin Portal</p>
+</div>
+</div>
+<nav class="flex-1 px-sm space-y-base">
+<!-- Navigation Items Mapping from JSON -->
+<a class="flex items-center gap-md px-md py-sm text-primary font-bold border-l-4 border-secondary-container hover:bg-surface-container-low transition-colors group" href="#">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors group" href="students.html">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
+<span class="font-label-md text-label-md">Student Management</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors group" href="instructors.html">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">school</span>
+<span class="font-label-md text-label-md">Instructors</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors group" href="cohorts-courses.html">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">library_books</span>
+<span class="font-label-md text-label-md">Course & Cohort Management</span>
+</a>
+</nav>
+<button id="logoutBtn" class="flex items-center gap-md px-md py-sm text-error hover:bg-error-container/20 transition-colors w-full rounded-lg mt-sm">
+  <span class="material-symbols-outlined">logout</span>
+  <span class="font-label-md text-label-md">Logout</span>
+</button>
+<div class="mt-auto px-md pt-lg border-t border-outline-variant">
+<div class="flex items-center gap-sm p-sm rounded-xl hover:bg-surface-container transition-colors cursor-pointer">
+<img class="w-10 h-10 rounded-full border-2 border-surface-container-highest object-cover" data-alt="kwil logo" src="./images/background.png"/>
+<div class="flex-1 overflow-hidden">
+<p class="font-label-md text-label-md text-on-surface truncate">KWIL Admin</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Managing direct reports</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">unfold_more</span>
+</div>
+
+<div class="mt-md px-sm">
+<p class="font-label-sm text-[10px] text-outline uppercase tracking-widest">Version v1.0.4</p>
+
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-[280px] min-h-screen flex flex-col pb-20 md:pb-0">
+<!-- Top App Bar -->
+<header class="sticky top-0 w-full z-40 bg-surface-bright border-b border-outline-variant flex justify-between items-center h-20 px-md md:px-lg">
+<div class="flex items-center gap-md">
+<button class="md:hidden hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary hidden md:block">Dashboard Overview</h2>
+<h2 class="font-headline-sm text-headline-sm text-primary md:hidden">KIL Admin</h2>
+</div>
+<div class="flex items-center gap-md">
+<!-- Search Bar (Desktop) -->
+<div class="hidden lg:flex items-center bg-surface-container-low border border-outline-variant rounded-full px-md py-sm w-80">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full placeholder:text-outline" placeholder="Search students, cohorts..." type="text"/>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95 relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary-container rounded-full ring-2 ring-surface-bright"></span>
+</button>
+<button class="hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_today</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm hidden sm:block"></div>
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover sm:block hidden" data-alt="A professional headshot of a female administrator in her late 30s, wearing business casual attire. She is smiling confidently in a modern, softly lit tech office environment with clean white walls and subtle navy blue branding accents. The image has a clean, premium SaaS aesthetic with shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAod3kPQfB7_RurUHybD5_3Q0DwqrCH11Wa47NoSLvh2Xh-_EcFNV_Kzbmt4OO69j45w0vC17SyO2HW7qBY1M-4baxj6RQThqcNh_mMuXmKV5_a20a4UVsraj6byCXfy2Z7xpmddPhxwkajvyPLkp8bVi4pMB3z1OrTtrJ6XSt1M_P543yAfaBTBJ6PX6Xh7sWZujrveVfdYewJ1PIbYAB594Um7-8uQTPZU6Ukaf2Smv-eNQ6SVqr5EKct_FtoO8gy-j9yX0zOccs"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-md md:p-xl space-y-lg flex-1">
+<!-- Greeting & Quick Stats Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-sm">
+<div><h3 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
+  Welcome back, <span class="admin-name"></span>
+</h3>
+<p class="font-body-md text-on-surface-variant">Here's what's happening at the Innovation Lab today.</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-primary text-on-primary px-lg py-sm rounded-xl font-label-md flex items-center gap-sm shadow-sm hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                        Create Cohort
+                    </button>
+</div>
+</div>
+<!-- Bento Stat Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1: Total Students -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 stat-card-glow transition-all hover:shadow-md hover:translate-y-[-2px] group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary-container transition-colors">group</span>
+</div>
+<span class="text-green-600 font-label-sm bg-green-50 px-sm py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 12%
+                        </span>
+</div>
+<p class="font-label-md text-on-surface-variant mb-xs">Total Students</p>
+<h4 class="font-headline-lg text-headline-lg text-primary" id="totalStudents"></h4>
+<p class="font-body-sm text-outline mt-sm">Across all active programs</p>
+</div>
+<!-- Card 2: Total Instructors -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 stat-card-glow transition-all hover:shadow-md hover:translate-y-[-2px] group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary-container transition-colors" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<span class="text-primary font-label-sm bg-primary-fixed px-sm py-1 rounded-full">Steady</span>
+</div>
+<p class="font-label-md text-on-surface-variant mb-xs">Total Instructors</p>
+<h4 class="font-headline-lg text-headline-lg text-primary" id="totalInstructors"></h4>
+<p class="font-body-sm text-outline mt-sm">Vetted industry experts</p>
+</div>
+<!-- Card 3: Active Courses -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 stat-card-glow transition-all hover:shadow-md hover:translate-y-[-2px] group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container rounded-lg group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary-container transition-colors">library_books</span>
+</div>
+<span class="text-green-600 font-label-sm bg-green-50 px-sm py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">add</span> 4 New
+                        </span>
+</div>
+<p class="font-label-md text-on-surface-variant mb-xs">Active Courses</p>
+<h4 class="font-headline-lg text-headline-lg text-primary">18</h4>
+<p class="font-body-sm text-outline mt-sm">Current semester offerings</p>
+</div>
+<!-- Card 4: Current Cohort -->
+<div class="bg-primary-container p-lg rounded-xl shadow-sm border border-primary/10 stat-card-glow transition-all hover:shadow-md hover:translate-y-[-2px] group overflow-hidden">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-white/10 rounded-lg">
+<span class="material-symbols-outlined text-secondary-container">calendar_month</span>
+</div>
+<span class="text-secondary-fixed-dim font-label-sm bg-white/10 px-sm py-1 rounded-full">Week 6</span>
+</div>
+<p class="font-label-md text-primary-fixed-dim mb-xs">Current Cohort</p>
+<h4 class="font-headline-lg text-headline-lg text-on-primary">Q3-2024</h4>
+<p class="font-body-sm text-on-primary/60 mt-sm">240 students enrolled</p>
+</div>
+<!-- Decorative element for the dark card -->
+<div class="absolute bottom-[-20px] right-[-20px] opacity-10">
+<span class="material-symbols-outlined text-[120px] text-white">data_exploration</span>
+</div>
+</div>
+</div>
+
+<!-- Admin Engagement Section -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-gutter">
+  <div class="xl:col-span-2 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-lg">
+    <div class="flex items-center justify-between mb-lg gap-sm">
+      <div>
+        <h5 class="font-headline-sm text-headline-sm text-primary">Latest Announcements</h5>
+        <p class="font-body-sm text-on-surface-variant">Share important updates with students and instructors.</p>
+      </div>
+      <button onclick="document.getElementById('announcementModal').classList.remove('hidden')" class="bg-primary text-on-primary px-lg py-sm rounded-xl font-label-md hover:opacity-90 transition-all">
+        New Announcement
+      </button>
+    </div>
+    <div id="announcementsList" class="space-y-md">
+      <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Loading announcements...</div>
+    </div>
+  </div>
+
+  <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-lg">
+    <div class="flex items-center justify-between mb-lg gap-sm">
+      <div>
+        <h5 class="font-headline-sm text-headline-sm text-primary">Attendance Sessions</h5>
+        <p class="font-body-sm text-on-surface-variant">Record attendance for a cohort or course session.</p>
+      </div>
+      <button onclick="document.getElementById('attendanceModal').classList.remove('hidden')" class="bg-primary text-on-primary px-lg py-sm rounded-xl font-label-md hover:opacity-90 transition-all">
+        Record Attendance
+      </button>
+    </div>
+    <div id="attendanceSessionsList" class="space-y-md">
+      <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Loading attendance sessions...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard Center Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Recent Students Table (Left - 2 Cols) -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 flex flex-col overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center">
+<h5 class="font-headline-sm text-headline-sm text-primary">Recent Student Enrollments</h5>
+<button class="text-secondary font-label-md hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-lg py-sm font-label-md text-on-surface-variant">Student</th>
+<th class="px-lg py-sm font-label-md text-on-surface-variant">Course</th>
+<th class="px-lg py-sm font-label-md text-on-surface-variant">Status</th>
+<th class="px-lg py-sm font-label-md text-on-surface-variant">Joined</th>
+<th class="px-lg py-sm font-label-md text-on-surface-variant"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20" id="studentsTableBody">
+
+</tbody>
+</table>
+</div>
+</div>
+<!-- Progress Overview Chart (Right - 1 Col) -->
+<div class="lg:col-span-1 space-y-gutter">
+<!-- Progress Card -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-center mb-lg">
+<h5 class="font-headline-sm text-headline-sm text-primary">Module Progress</h5>
+<span class="material-symbols-outlined text-on-surface-variant">info</span>
+</div>
+<div class="space-y-md">
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<p class="font-label-md text-on-surface">Web Development</p>
+<p class="font-label-sm text-secondary">78%</p>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: 78%"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<p class="font-label-md text-on-surface">UI/UX Design</p>
+<p class="font-label-sm text-secondary">92%</p>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: 92%"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<p class="font-label-md text-on-surface">Data Science</p>
+<p class="font-label-sm text-secondary">45%</p>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: 45%"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<p class="font-label-md text-on-surface">Mobile Dev</p>
+<p class="font-label-sm text-secondary">61%</p>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: 61%"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-lg py-sm border border-outline-variant text-on-surface-variant font-label-md rounded-lg hover:bg-surface-container transition-colors">
+                            Download Report
+                        </button>
+</div>
+<!-- Upcoming Cohort Teaser -->
+<div class="bg-secondary-container p-lg rounded-xl shadow-md flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-white">campaign</span>
+</div>
+<h6 class="font-headline-sm text-white mb-xs">Next Intake Starts</h6>
+<p class="font-display-lg text-white font-black mb-sm">14 : 08 : 42</p>
+<p class="font-body-sm text-white/80">Jan 2024 Application Window</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Bottom Nav -->
+<nav class="fixed bottom-0 w-full md:hidden rounded-t-xl z-50 bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-secondary-fixed-dim bg-primary-container rounded-xl px-4 py-1 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high px-4 py-1 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px]">Students</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high px-4 py-1 transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-sm text-[10px]">Courses</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high px-4 py-1 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-[10px]">Account</span>
+</a>
+</nav>
+</main>
+<!-- Floating Action Button (FAB) - Dashboard Context -->
+<button class="fixed bottom-20 right-6 md:bottom-10 md:right-10 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40 group">
+<span class="material-symbols-outlined text-[32px]">edit</span>
+<span class="absolute right-full mr-4 bg-primary-container text-white px-md py-sm rounded-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap font-label-md">Create Post</span>
+</button>
+
+<!-- Announcement Modal -->
+<div id="announcementModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <div>
+        <h3 class="font-headline-sm text-headline-sm text-primary">New Announcement</h3>
+        <p class="font-body-sm text-on-surface-variant">Publish a message for all enrolled users.</p>
+      </div>
+      <button onclick="document.getElementById('announcementModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="announcementForm" onsubmit="submitAnnouncement(event)" class="space-y-md">
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Title</label>
+        <input id="announcementTitle" type="text" required class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" />
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Message</label>
+        <textarea id="announcementMessage" rows="4" required class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm"></textarea>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('announcementModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">Cancel</button>
+        <button type="submit" id="announcementSubmitBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">Publish</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Attendance Modal -->
+<div id="attendanceModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <div>
+        <h3 class="font-headline-sm text-headline-sm text-primary">Record Attendance</h3>
+        <p class="font-body-sm text-on-surface-variant">Create a session for a course or cohort.</p>
+      </div>
+      <button onclick="document.getElementById('attendanceModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="attendanceForm" onsubmit="submitAttendance(event)" class="space-y-md">
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Session Title</label>
+        <input id="attendanceTitle" type="text" required class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" />
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Date</label>
+        <input id="attendanceDate" type="date" required class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" />
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Course</label>
+        <input id="attendanceCourse" type="text" placeholder="Optional" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" />
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Cohort</label>
+        <input id="attendanceCohort" type="text" placeholder="Optional" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" />
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Notes</label>
+        <textarea id="attendanceNotes" rows="3" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm"></textarea>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('attendanceModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">Cancel</button>
+        <button type="submit" id="attendanceSubmitBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">Record</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const API_URL = "https://kwil-management-system-backend.onrender.com/api";
+
+  const getToken = () => localStorage.getItem("kil_token");
+  const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
+
+  const logout = () => {
+    localStorage.removeItem("kil_token");
+    localStorage.removeItem("kil_user");
+    window.location.href = "index.html";
+  };
+
+  // Protect this page — only ADMIN can access
+  const user = getUser();
+  const token = getToken();
+  if (!token || !user || user.role !== "ADMIN") {
+    window.location.href = "index.html";
+  }
+
+  // Update admin name in UI
+  document.querySelectorAll('.admin-name').forEach(el => {
+    el.textContent = user?.fullName || "Admin";
+  });
+
+  // Fetch dashboard stats and admin announcements/attendance
+  async function loadStats() {
+    try {
+      const [usersRes, announcementsRes, attendanceRes] = await Promise.all([
+        fetch(`${API_URL}/admin/users`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/admin/announcements`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/attendance/sessions`, { headers: { Authorization: `Bearer ${token}` } }),
+      ]);
+
+      const [usersData, announcementsData, attendanceData] = await Promise.all([
+        usersRes.json(),
+        announcementsRes.json(),
+        attendanceRes.json(),
+      ]);
+
+      const students = usersData.users.filter(u => u.role === "STUDENT");
+      const instructors = usersData.users.filter(u => u.role === "INSTRUCTOR");
+
+      document.getElementById('totalStudents').textContent = students.length;
+      document.getElementById('totalInstructors').textContent = instructors.length;
+
+      renderRecentStudents(students.slice(0, 5));
+      renderAnnouncements(announcementsData.announcements || []);
+      renderAttendanceSessions(attendanceData.sessions || []);
+    } catch (err) {
+      console.error("Failed to load stats:", err);
+      document.getElementById('announcementsList').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load announcements.</div>`;
+      document.getElementById('attendanceSessionsList').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load attendance sessions.</div>`;
+    }
+  }
+
+  function getInitials(name) {
+    return name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+  }
+
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("en-GB", {
+      day: "numeric", month: "short", year: "numeric"
+    });
+  }
+
+  function renderRecentStudents(students) {
+    const tbody = document.getElementById('studentsTableBody');
+    if (!students.length) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="px-lg py-xl text-center text-outline font-body-sm">
+            No students enrolled yet
+          </td>
+        </tr>`;
+      return;
+    }
+
+    tbody.innerHTML = students.map(s => `
+      <tr class="hover:bg-surface-container-low/50 transition-colors">
+        <td class="px-lg py-md">
+          <div class="flex items-center gap-sm">
+            <div class="w-8 h-8 rounded-full bg-secondary-container/20 text-secondary flex items-center justify-center font-bold text-xs">
+              ${getInitials(s.fullName)}
+            </div>
+            <div>
+              <p class="font-label-md text-on-surface">${s.fullName}</p>
+              <p class="font-body-sm text-outline text-[12px]">${s.email}</p>
+            </div>
+          </div>
+        </td>
+        <td class="px-lg py-md font-body-sm text-on-surface">${s.student?.course || "—"}</td>
+        <td class="px-lg py-md">
+          <span class="px-sm py-1 ${s.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'} rounded-full font-label-sm text-[11px] uppercase">
+            ${s.status}
+          </span>
+        </td>
+        <td class="px-lg py-md font-body-sm text-outline">${formatDate(s.createdAt)}</td>
+        <td class="px-lg py-md text-right">
+          <button class="p-1 hover:bg-surface-container rounded-full">
+            <span class="material-symbols-outlined text-outline">more_vert</span>
+          </button>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  function renderAnnouncements(announcements) {
+    const container = document.getElementById('announcementsList');
+    if (!announcements.length) {
+      container.innerHTML = `
+        <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">
+          No announcements yet. Create one to notify your users.
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = announcements.slice(0, 3).map(a => `
+      <div class="bg-surface-container rounded-3xl border border-outline-variant p-md">
+        <div class="flex items-start justify-between gap-sm mb-2">
+          <div>
+            <h6 class="font-label-md text-primary">${a.title}</h6>
+            <p class="text-[11px] text-on-surface-variant mt-1">Posted by ${a.createdBy.fullName} • ${new Date(a.createdAt).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}</p>
+          </div>
+        </div>
+        <p class="font-body-sm text-on-surface-variant">${a.message}</p>
+      </div>`).join('');
+  }
+
+  function renderAttendanceSessions(sessions) {
+  const container = document.getElementById('attendanceSessionsList');
+  if (!sessions.length) {
+    container.innerHTML = `
+      <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">
+        No attendance sessions recorded yet.
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = sessions.slice(0, 5).map(s => {
+    const records = s.records || [];
+    const present = records.filter(r => r.status === "PRESENT").length;
+    const pending = records.filter(r => r.status === "PENDING").length;
+    const absent = records.filter(r => r.status === "ABSENT").length;
+
+    return `
+      <div class="bg-surface-container rounded-3xl border border-outline-variant p-md">
+        <div class="flex items-start justify-between gap-sm mb-sm">
+          <div>
+            <h6 class="font-label-md text-primary">${s.title}</h6>
+            <p class="text-[11px] text-on-surface-variant mt-1">
+              ${s.course || 'All courses'} • ${s.cohort || 'All cohorts'} •
+              ${new Date(s.date).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}
+            </p>
+          </div>
+          <span class="text-[11px] font-bold text-on-surface-variant">${records.length} record${records.length !== 1 ? 's' : ''}</span>
+        </div>
+        ${records.length ? `
+          <div class="flex gap-sm mt-sm flex-wrap">
+            ${present ? `<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold">${present} Present</span>` : ''}
+            ${pending ? `<span class="px-2 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-[10px] font-bold"> ${pending} Pending</span>` : ''}
+            ${absent ? `<span class="px-2 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold"> ${absent} Absent</span>` : ''}
+          </div>
+          <div class="mt-sm space-y-xs">
+            ${records.slice(0, 3).map(r => `
+              <div class="flex items-center justify-between text-[12px]">
+                <span class="text-on-surface">${r.student.user.fullName}</span>
+                <span class="${r.status === 'PRESENT' ? 'text-green-600' : r.status === 'ABSENT' ? 'text-error' : r.status === 'LATE' ? 'text-secondary' : 'text-on-surface-variant'} font-bold">
+                  ${r.status}
+                </span>
+              </div>
+            `).join('')}
+            ${records.length > 3 ? `<p class="text-[11px] text-on-surface-variant">+${records.length - 3} more students</p>` : ''}
+          </div>
+        ` : `<p class="text-[11px] text-on-surface-variant mt-sm">No students have marked attendance yet</p>`}
+      </div>
+    `;
+  }).join('');
+}
+
+  async function submitAnnouncement(e) {
+    e.preventDefault();
+    const title = document.getElementById('announcementTitle').value.trim();
+    const message = document.getElementById('announcementMessage').value.trim();
+    const btn = document.getElementById('announcementSubmitBtn');
+
+    if (!title || !message) return;
+    btn.disabled = true;
+    btn.textContent = 'Publishing...';
+
+    try {
+      const res = await fetch(`${API_URL}/admin/announcements`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, message }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('announcementForm').reset();
+        document.getElementById('announcementModal').classList.add('hidden');
+        loadStats();
+      } else {
+        alert(data.message || 'Failed to publish announcement');
+      }
+    } catch (err) {
+      alert('Network error. Please try again.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Publish';
+    }
+  }
+
+  async function submitAttendance(e) {
+    e.preventDefault();
+    const title = document.getElementById('attendanceTitle').value.trim();
+    const date = document.getElementById('attendanceDate').value;
+    const course = document.getElementById('attendanceCourse').value.trim();
+    const cohort = document.getElementById('attendanceCohort').value.trim();
+    const notes = document.getElementById('attendanceNotes').value.trim();
+    const btn = document.getElementById('attendanceSubmitBtn');
+
+    if (!title || !date) return;
+    btn.disabled = true;
+    btn.textContent = 'Recording...';
+
+    try {
+      const res = await fetch(`${API_URL}/admin/attendance-sessions`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, date, course, cohort, notes }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('attendanceForm').reset();
+        document.getElementById('attendanceModal').classList.add('hidden');
+        loadStats();
+      } else {
+        alert(data.message || 'Failed to record attendance');
+      }
+    } catch (err) {
+      alert('Network error. Please try again.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Record';
+    }
+  }
+
+  // Mobile Sidebar Toggle
+  const menuBtn = document.querySelector('header button');
+  const sidebar = document.getElementById('main-nav');
+  menuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('flex');
+    sidebar.classList.toggle('w-[280px]');
+    sidebar.classList.toggle('shadow-2xl');
+  });
+
+  // Logout button
+  document.getElementById('logoutBtn')?.addEventListener('click', logout);
+
+  // Load data on page load
+  loadStats();
+</script>
+</body></html>

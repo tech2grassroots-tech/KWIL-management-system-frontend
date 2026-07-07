@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Assignments | Kwara Innovation Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#c4c7c9","surface-container-lowest": "#ffffff","on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bbc7df","secondary-container": "#feae2c","on-secondary": "#ffffff",
+                    "on-surface": "#0b1c30","on-secondary-container": "#6b4500","error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3c475b","surface-variant": "#d3e4fe","on-surface-variant": "#45474c",
+                    "outline": "#75777d","on-background": "#0b1c30","secondary": "#835500",
+                    "on-tertiary-fixed-variant": "#444749","surface-container-highest": "#d3e4fe","on-tertiary-container": "#818486",
+                    "inverse-on-surface": "#eaf1ff","outline-variant": "#c5c6cd","surface-container": "#e5eeff",
+                    "secondary-fixed-dim": "#ffb955","on-primary-container": "#79849b","surface-container-high": "#dce9ff",
+                    "error": "#ba1a1a","surface-container-low": "#eff4ff","surface-dim": "#cbdbf5",
+                    "surface-bright": "#f8f9ff","inverse-surface": "#213145","primary": "#000000",
+                    "secondary-fixed": "#ffddb4","surface-tint": "#535f74","on-error-container": "#93000a",
+                    "primary-fixed": "#d7e3fc","on-tertiary": "#ffffff","tertiary-container": "#191c1e",
+                    "surface": "#f8f9ff","on-secondary-fixed": "#291800","on-secondary-fixed-variant": "#633f00",
+                    "on-tertiary-fixed": "#191c1e","primary-container": "#101c2e","on-error": "#ffffff",
+                    "tertiary": "#000000","tertiary-fixed": "#e0e3e5","inverse-primary": "#bbc7df",
+                    "on-primary-fixed": "#101c2e","background": "#f8f9ff"
+            },
+            "borderRadius": {"DEFAULT": "0.25rem","lg": "0.5rem","xl": "0.75rem","full": "9999px"},
+            "spacing": {"2xl": "48px","3xl": "64px","xl": "32px","base": "4px","gutter": "24px","md": "16px","xs": "4px","container-max": "1440px","lg": "24px","sm": "8px"},
+            "fontFamily": {"headline-lg": ["Plus Jakarta Sans"],"body-lg": ["Inter"],"headline-lg-mobile": ["Plus Jakarta Sans"],"body-md": ["Inter"],"display-lg": ["Plus Jakarta Sans"],"body-sm": ["Inter"],"headline-sm": ["Plus Jakarta Sans"],"label-sm": ["Inter"],"label-md": ["Inter"],"headline-md": ["Plus Jakarta Sans"]},
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #c5c6cd; border-radius: 10px; }
+        .glass-header { backdrop-filter: blur(8px); background-color: rgba(248, 249, 255, 0.8); }
+    </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-20 md:pb-0">
+<!-- Sidebar -->
+<aside class="hidden md:flex fixed h-full w-[280px] left-0 top-0 border-r border-outline-variant bg-surface flex-col py-lg z-50" id="main-sidebar">
+<div class="px-md mb-xl flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">school</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Kwara Innovation Lab</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Student Portal</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-primary font-bold border-l-4 border-secondary-container bg-surface-container-low transition-all duration-200" href="student-dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="student-assignments.html">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Assignments</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="student-attendance.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Attendance</span>
+</a>
+<button id="logoutBtn" class="flex items-center gap-md px-md py-sm text-error hover:bg-error-container/20 transition-colors w-full rounded-lg mt-sm">
+  <span class="material-symbols-outlined">logout</span>
+  <span class="font-label-md text-label-md">Logout</span>
+</button>
+</nav>
+<div class="px-md pt-md border-t border-outline-variant">
+<button id="logoutBtn" class="flex items-center gap-md px-md py-sm text-error hover:bg-error-container/20 transition-colors w-full rounded-lg">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</button>
+</div>
+</aside>
+
+<!-- Main Content -->
+<main class="md:ml-[280px] min-h-screen">
+<header class="sticky top-0 w-full z-40 bg-surface-bright border-b border-outline-variant px-lg h-20 flex justify-between items-center md:px-xl glass-header">
+<div class="flex items-center gap-md">
+<button class="md:hidden hover:bg-surface-container rounded-full p-2">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary font-bold">My Assignments</h2>
+</div>
+</header>
+
+<div class="p-md md:p-xl max-w-container-max mx-auto space-y-lg">
+<!-- Stats -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+<p class="text-on-surface-variant font-label-md mb-1">Total</p>
+<p class="font-headline-md text-headline-md" id="totalCount">—</p>
+</div>
+<div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+<p class="text-on-surface-variant font-label-md mb-1">Pending</p>
+<p class="font-headline-md text-headline-md text-secondary" id="pendingCount">—</p>
+</div>
+<div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+<p class="text-on-surface-variant font-label-md mb-1">Submitted</p>
+<p class="font-headline-md text-headline-md text-primary" id="submittedCount">—</p>
+</div>
+<div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+<p class="text-on-surface-variant font-label-md mb-1">Graded</p>
+<p class="font-headline-md text-headline-md text-green-600" id="gradedCount">—</p>
+</div>
+</div>
+
+<!-- Assignments List -->
+<div id="assignmentsList" class="space-y-md"></div>
+</div>
+</main>
+
+<!-- Bottom Nav (Mobile) -->
+<nav class="fixed bottom-0 w-full md:hidden rounded-t-xl z-50 bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1" href="student-dashboard.html">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] mt-0.5">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary-fixed-dim bg-primary-container rounded-xl px-4 py-1" href="student-assignments.html">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-[10px] mt-0.5">Tasks</span>
+</a>
+</nav>
+
+<!-- Submit Assignment Modal -->
+<div id="submitModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">Submit Assignment</h3>
+      <button onclick="document.getElementById('submitModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <p id="submitAssignTitle" class="font-label-md text-on-surface-variant mb-md">—</p>
+    <form id="submitForm" onsubmit="handleSubmit(event)" class="space-y-md">
+      <input type="hidden" id="submitAssignId"/>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Submission Link or Notes</label>
+        <textarea id="submitContent" required rows="4" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="https://github.com/you/project or your notes"></textarea>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('submitModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">
+          Cancel
+        </button>
+        <button type="submit" id="submitBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const API_URL = "https://kwil-management-system-backend.onrender.com/api";
+  const getToken = () => localStorage.getItem("kil_token");
+  const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
+
+  const user = getUser();
+  const token = getToken();
+  if (!token || !user || user.role !== "STUDENT") {
+    window.location.href = "index.html";
+  }
+
+  let allAssignments = [];
+
+  async function loadAssignments() {
+    try {
+      const res = await fetch(`${API_URL}/student/assignments`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      allAssignments = data.assignments || [];
+      updateStats(allAssignments);
+      renderAssignments(allAssignments);
+    } catch (err) {
+      console.error("Failed to load assignments:", err);
+    }
+  }
+
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  function getMySubmission(assignment) {
+    return assignment.submissions && assignment.submissions[0] ? assignment.submissions[0] : null;
+  }
+
+  function updateStats(assignments) {
+    let pending = 0, submitted = 0, graded = 0;
+    assignments.forEach(a => {
+      const sub = getMySubmission(a);
+      if (!sub) pending++;
+      else if (sub.status === "GRADED") graded++;
+      else submitted++;
+    });
+
+    document.getElementById('totalCount').textContent = assignments.length;
+    document.getElementById('pendingCount').textContent = pending;
+    document.getElementById('submittedCount').textContent = submitted;
+    document.getElementById('gradedCount').textContent = graded;
+  }
+
+  function renderAssignments(assignments) {
+    const container = document.getElementById('assignmentsList');
+    if (!assignments.length) {
+      container.innerHTML = `
+        <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-xl text-center">
+          <p class="text-on-surface-variant font-body-sm">No assignments yet. Check back soon!</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = assignments.map(a => {
+      const sub = getMySubmission(a);
+      const isPastDue = new Date(a.dueDate) < new Date();
+      const instructorName = a.instructor?.user?.fullName || "Instructor";
+
+      let statusBadge, actionButton;
+
+      if (!sub) {
+        statusBadge = `<span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase ${isPastDue ? 'bg-error-container text-on-error-container' : 'bg-secondary-fixed text-on-secondary-fixed-variant'}">${isPastDue ? 'Overdue' : 'Not Submitted'}</span>`;
+        actionButton = `<button onclick='openSubmitModal(${JSON.stringify({ id: a.id, title: a.title }).replace(/'/g, "&apos;")})' class="w-full py-sm bg-primary text-on-primary rounded-xl font-label-md hover:opacity-90 transition-colors">Submit Work</button>`;
+      } else if (sub.status === "GRADED") {
+        statusBadge = `<span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase bg-green-100 text-green-700">Graded: ${sub.grade}/100</span>`;
+        actionButton = sub.feedback
+          ? `<div class="p-md bg-surface-container-low rounded-lg"><p class="text-label-sm font-bold text-on-surface-variant mb-xs">Instructor Feedback</p><p class="text-body-sm text-on-surface">${sub.feedback}</p></div>`
+          : "";
+      } else {
+        statusBadge = `<span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase bg-primary-fixed text-on-primary-fixed-variant">Submitted • Awaiting Grade</span>`;
+        actionButton = `<button onclick='openSubmitModal(${JSON.stringify({ id: a.id, title: a.title }).replace(/'/g, "&apos;")})' class="w-full py-sm border border-outline-variant text-on-surface rounded-xl font-label-md hover:bg-surface-container transition-colors">Edit Submission</button>`;
+      }
+
+      return `
+        <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-lg">
+          <div class="flex justify-between items-start mb-sm">
+            <div>
+              <h3 class="font-headline-sm text-headline-sm text-primary">${a.title}</h3>
+              <p class="text-body-sm text-on-surface-variant">${a.course} • Posted by ${instructorName}</p>
+            </div>
+            ${statusBadge}
+          </div>
+          <p class="text-body-sm text-on-surface-variant mb-md">${a.description}</p>
+          <p class="text-label-sm text-outline mb-md">Due: ${formatDate(a.dueDate)}</p>
+          ${actionButton}
+        </div>
+      `;
+    }).join("");
+  }
+
+  function openSubmitModal(data) {
+    document.getElementById('submitAssignId').value = data.id;
+    document.getElementById('submitAssignTitle').textContent = data.title;
+    document.getElementById('submitModal').classList.remove('hidden');
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const id = document.getElementById('submitAssignId').value;
+    const content = document.getElementById('submitContent').value;
+    const btn = document.getElementById('submitBtn');
+
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
+
+    try {
+      const res = await fetch(`${API_URL}/student/assignments/${id}/submit`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      });
+      if (res.ok) {
+        document.getElementById('submitModal').classList.add('hidden');
+        document.getElementById('submitForm').reset();
+        loadAssignments();
+      } else {
+        const data = await res.json();
+        alert(data.message || "Failed to submit");
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Submit";
+    }
+  }
+
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem("kil_token");
+    localStorage.removeItem("kil_user");
+    window.location.href = "index.html";
+  });
+
+  const menuBtn = document.querySelector('header button');
+  const sidebar = document.getElementById('main-sidebar');
+  menuBtn?.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('flex');
+  });
+
+  loadAssignments();
+</script>
+</body></html>

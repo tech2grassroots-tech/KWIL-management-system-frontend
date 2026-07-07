@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Attendance Review | Kwara Innovation Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-lowest": "#ffffff","on-primary": "#ffffff","secondary-container": "#feae2c",
+          "on-secondary-container": "#6b4500","error-container": "#ffdad6","on-primary-fixed-variant": "#3c475b",
+          "surface-variant": "#d3e4fe","on-surface-variant": "#45474c","outline": "#75777d","on-background": "#0b1c30",
+          "secondary": "#835500","surface-container-highest": "#d3e4fe","inverse-on-surface": "#eaf1ff",
+          "outline-variant": "#c5c6cd","surface-container": "#e5eeff","secondary-fixed-dim": "#ffb955",
+          "on-primary-container": "#79849b","surface-container-high": "#dce9ff","error": "#ba1a1a",
+          "surface-container-low": "#eff4ff","surface-bright": "#f8f9ff","inverse-surface": "#213145",
+          "primary": "#000000","secondary-fixed": "#ffddb4","on-error-container": "#93000a",
+          "primary-fixed": "#d7e3fc","tertiary-container": "#191c1e","surface": "#f8f9ff",
+          "on-secondary-fixed-variant": "#633f00","primary-container": "#101c2e","on-error": "#ffffff",
+          "tertiary-fixed": "#e0e3e5","inverse-primary": "#bbc7df","on-primary-fixed": "#101c2e","background": "#f8f9ff",
+          "on-surface": "#0b1c30","on-tertiary": "#ffffff","on-secondary": "#ffffff","on-secondary-fixed": "#291800",
+          "on-tertiary-fixed": "#191c1e","tertiary": "#000000",
+        },
+        borderRadius: { "DEFAULT": "0.25rem","lg": "0.5rem","xl": "0.75rem","full": "9999px" },
+        spacing: { "2xl": "48px","3xl": "64px","xl": "32px","base": "4px","gutter": "24px","md": "16px","xs": "4px","container-max": "1440px","lg": "24px","sm": "8px" },
+        fontFamily: { "headline-lg": ["Plus Jakarta Sans"],"body-md": ["Inter"],"body-sm": ["Inter"],"headline-sm": ["Plus Jakarta Sans"],"label-sm": ["Inter"],"label-md": ["Inter"],"headline-md": ["Plus Jakarta Sans"] },
+        fontSize: {
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+          "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-thumb { background: #c5c6cd; border-radius: 10px; }
+</style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-20 md:pb-0">
+
+<!-- Sidebar -->
+<aside class="hidden md:flex fixed h-full w-[280px] left-0 top-0 border-r border-outline-variant bg-surface flex-col py-lg z-50" id="main-nav">
+  <div class="px-md mb-xl">
+    <h1 class="font-headline-md text-headline-md font-bold text-primary">Kwara Innovation Lab</h1>
+    <p class="font-label-md text-label-md text-on-surface-variant">Instructor Portal</p>
+  </div>
+  <nav class="flex-1 space-y-1">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="instructor-dashboard.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class="font-label-md text-label-md">Dashboard</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="instructor-assignments.html">
+      <span class="material-symbols-outlined">assignment</span>
+      <span class="font-label-md text-label-md">Assignments</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm text-primary font-bold border-l-4 border-secondary-container bg-surface-container-low" href="instructor-attendance.html">
+      <span class="material-symbols-outlined">fact_check</span>
+      <span class="font-label-md text-label-md">Attendance Review</span>
+    </a>
+  </nav>
+  <div class="px-md mt-auto pt-lg border-t border-outline-variant">
+    <button id="logoutBtn" class="flex items-center gap-md px-md py-sm text-error hover:bg-error-container/20 transition-colors w-full rounded-lg">
+      <span class="material-symbols-outlined">logout</span>
+      <span class="font-label-md text-label-md">Logout</span>
+    </button>
+  </div>
+</aside>
+
+<!-- Main -->
+<main class="md:ml-[280px] min-h-screen">
+  <header class="sticky top-0 w-full z-40 bg-surface-bright border-b border-outline-variant px-lg h-20 flex justify-between items-center">
+    <div class="flex items-center gap-md">
+      <button class="md:hidden hover:bg-surface-container rounded-full p-2">
+        <span class="material-symbols-outlined text-primary">menu</span>
+      </button>
+      <h2 class="font-headline-md text-headline-md text-primary font-bold">Attendance Review</h2>
+    </div>
+  </header>
+
+  <div class="p-md md:p-xl max-w-5xl mx-auto space-y-lg">
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+      <div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+        <p class="text-on-surface-variant font-label-md mb-1">Total Sessions</p>
+        <p class="font-headline-md text-headline-md" id="totalSessions">—</p>
+      </div>
+      <div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+        <p class="text-on-surface-variant font-label-md mb-1">Pending Review</p>
+        <p class="font-headline-md text-headline-md text-secondary" id="pendingCount">—</p>
+      </div>
+      <div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+        <p class="text-on-surface-variant font-label-md mb-1">Verified Present</p>
+        <p class="font-headline-md text-headline-md text-green-600" id="presentCount">—</p>
+      </div>
+      <div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+        <p class="text-on-surface-variant font-label-md mb-1">Total Records</p>
+        <p class="font-headline-md text-headline-md" id="totalRecords">—</p>
+      </div>
+    </div>
+
+    <!-- Sessions -->
+    <div id="sessionsList" class="space-y-lg"></div>
+  </div>
+</main>
+
+<!-- Review Modal -->
+<div id="reviewModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">Review Attendance</h3>
+      <button onclick="document.getElementById('reviewModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="mb-md p-md bg-surface-container-low rounded-lg">
+      <p id="reviewStudentName" class="font-label-md text-on-surface">—</p>
+      <p id="reviewStudentNote" class="font-body-sm text-on-surface-variant mt-xs">—</p>
+    </div>
+    <form id="reviewForm" onsubmit="submitReview(event)" class="space-y-md">
+      <input type="hidden" id="reviewRecordId"/>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Status</label>
+        <select id="reviewStatus" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm bg-white">
+          <option value="">Select status</option>
+          <option value="PRESENT">✅ Present</option>
+          <option value="LATE">🕐 Late</option>
+          <option value="ABSENT">❌ Absent</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Note (optional)</label>
+        <textarea id="reviewNote" rows="2" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm" placeholder="e.g. Confirmed via class log"></textarea>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('reviewModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">Cancel</button>
+        <button type="submit" id="reviewBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">Save Review</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const API_URL = "https://kwil-management-system-backend.onrender.com/api";
+  const getToken = () => localStorage.getItem("kil_token");
+  const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
+
+  const user = getUser();
+  const token = getToken();
+  if (!token || !user || user.role !== "INSTRUCTOR") {
+    window.location.href = "index.html";
+  }
+
+  async function loadSessions() {
+    try {
+      const res = await fetch(`${API_URL}/attendance/instructor/sessions`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      const sessions = data.sessions || [];
+      updateStats(sessions);
+      renderSessions(sessions);
+    } catch (err) {
+      console.error("Failed to load sessions:", err);
+    }
+  }
+
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  }
+
+  function getInitials(name) {
+    return name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+  }
+
+  function updateStats(sessions) {
+    const allRecords = sessions.flatMap(s => s.records || []);
+    const pending = allRecords.filter(r => r.status === "PENDING").length;
+    const present = allRecords.filter(r => r.status === "PRESENT").length;
+
+    document.getElementById('totalSessions').textContent = sessions.length;
+    document.getElementById('pendingCount').textContent = pending;
+    document.getElementById('presentCount').textContent = present;
+    document.getElementById('totalRecords').textContent = allRecords.length;
+  }
+
+  function getStatusBadge(status) {
+    const map = {
+      PENDING: ["bg-primary-fixed text-on-primary-fixed-variant", "Pending"],
+      PRESENT: ["bg-green-100 text-green-700", "Present ✓"],
+      ABSENT: ["bg-error-container text-on-error-container", "Absent"],
+      LATE: ["bg-secondary-fixed text-on-secondary-fixed-variant", "Late"],
+    };
+    const [cls, label] = map[status] || ["bg-surface-container text-on-surface-variant", status];
+    return `<span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase ${cls}">${label}</span>`;
+  }
+
+  function renderSessions(sessions) {
+    const container = document.getElementById('sessionsList');
+    if (!sessions.length) {
+      container.innerHTML = `
+        <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-xl text-center">
+          <p class="text-on-surface-variant font-body-sm">No attendance records to review yet. Students need to mark their attendance first.</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = sessions.map(s => `
+      <div class="bg-white rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+        <div class="p-lg border-b border-outline-variant">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-headline-sm text-headline-sm text-primary">${s.title}</h3>
+              <p class="text-body-sm text-on-surface-variant">${formatDate(s.date)}</p>
+              ${s.course ? `<p class="text-label-sm text-outline">${s.course}${s.cohort ? ' • ' + s.cohort : ''}</p>` : ''}
+            </div>
+            <div class="text-right">
+              <p class="font-label-md text-on-surface">${s.records.length} record${s.records.length !== 1 ? 's' : ''}</p>
+              <p class="text-label-sm text-secondary">${s.records.filter(r => r.status === 'PENDING').length} pending</p>
+            </div>
+          </div>
+        </div>
+        <div class="divide-y divide-outline-variant">
+          ${s.records.map(r => `
+            <div class="p-md flex items-center justify-between hover:bg-surface-container-low transition-colors">
+              <div class="flex items-center gap-md">
+                <div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center font-bold text-secondary-container text-xs">
+                  ${getInitials(r.student.user.fullName)}
+                </div>
+                <div>
+                  <p class="font-label-md text-on-surface">${r.student.user.fullName}</p>
+                  ${r.studentNote ? `<p class="text-[12px] text-on-surface-variant">"${r.studentNote}"</p>` : ''}
+                </div>
+              </div>
+              <div class="flex items-center gap-md">
+                ${getStatusBadge(r.status)}
+                <button onclick='openReviewModal(${JSON.stringify({id: r.id, name: r.student.user.fullName, note: r.studentNote || "", status: r.status}).replace(/'/g, "&apos;")})'
+                  class="px-md py-xs bg-primary text-on-primary rounded-lg font-label-sm hover:opacity-90">
+                  ${r.status === 'PENDING' ? 'Review' : 'Edit'}
+                </button>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function openReviewModal(data) {
+    document.getElementById('reviewRecordId').value = data.id;
+    document.getElementById('reviewStudentName').textContent = data.name;
+    document.getElementById('reviewStudentNote').textContent = data.note ? `Student note: "${data.note}"` : "No note provided";
+    document.getElementById('reviewStatus').value = data.status !== "PENDING" ? data.status : "";
+    document.getElementById('reviewNote').value = "";
+    document.getElementById('reviewModal').classList.remove('hidden');
+  }
+
+  async function submitReview(e) {
+    e.preventDefault();
+    const recordId = document.getElementById('reviewRecordId').value;
+    const status = document.getElementById('reviewStatus').value;
+    const instructorNote = document.getElementById('reviewNote').value;
+    const btn = document.getElementById('reviewBtn');
+
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+
+    try {
+      const res = await fetch(`${API_URL}/attendance/instructor/records/${recordId}/review`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ status, instructorNote }),
+      });
+      if (res.ok) {
+        document.getElementById('reviewModal').classList.add('hidden');
+        loadSessions();
+      } else {
+        const data = await res.json();
+        alert(data.message || "Failed to save review");
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save Review";
+    }
+  }
+
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem("kil_token");
+    localStorage.removeItem("kil_user");
+    window.location.href = "index.html";
+  });
+
+  const menuBtn = document.querySelector('header button');
+  const sidebar = document.getElementById('main-nav');
+  menuBtn?.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('flex');
+  });
+
+  loadSessions();
+</script>
+</body></html>

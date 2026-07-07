@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kwara Innovation Lab - Student Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#bbc7df",
+                        "secondary-container": "#feae2c",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "on-secondary-container": "#6b4500",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#3c475b",
+                        "surface-variant": "#d3e4fe",
+                        "on-surface-variant": "#45474c",
+                        "outline": "#75777d",
+                        "on-background": "#0b1c30",
+                        "secondary": "#835500",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#818486",
+                        "inverse-on-surface": "#eaf1ff",
+                        "outline-variant": "#c5c6cd",
+                        "surface-container": "#e5eeff",
+                        "secondary-fixed-dim": "#ffb955",
+                        "on-primary-container": "#79849b",
+                        "surface-container-high": "#dce9ff",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-surface": "#213145",
+                        "primary": "#000000",
+                        "secondary-fixed": "#ffddb4",
+                        "surface-tint": "#535f74",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#d7e3fc",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#191c1e",
+                        "surface": "#f8f9ff",
+                        "on-secondary-fixed": "#291800",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-container": "#101c2e",
+                        "on-error": "#ffffff",
+                        "tertiary": "#000000",
+                        "tertiary-fixed": "#e0e3e5",
+                        "inverse-primary": "#bbc7df",
+                        "on-primary-fixed": "#101c2e",
+                        "background": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "container-max": "1440px",
+                        "lg": "24px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .font-plus { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-24 md:pb-0">
+<!-- Desktop Navigation Drawer -->
+<aside class="hidden md:flex fixed h-full w-[280px] left-0 top-0 border-r border-outline-variant bg-surface flex-col py-lg z-50" id="main-sidebar">
+<div class="px-md mb-xl flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">school</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Kwara Innovation Lab</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Student Portal</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-primary font-bold border-l-4 border-secondary-container bg-surface-container-low transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="student-assignments.html">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Assignments</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="student-attendance.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Attendance</span>
+</a>
+<button id="logoutBtn" class="flex items-center gap-md px-md py-sm text-error hover:bg-error-container/20 transition-colors w-full rounded-lg mt-sm">
+  <span class="material-symbols-outlined">logout</span>
+  <span class="font-label-md text-label-md">Logout</span>
+</button>
+</nav>
+<div class="px-md pt-md border-t border-outline-variant">
+<div class="flex items-center gap-sm p-sm rounded-xl bg-surface-container">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">
+  <span id="sidebarInitials">--</span>
+</div>
+<div class="overflow-hidden">
+  <p id="sidebarName" class="text-label-md font-label-md text-on-surface truncate">Loading...</p>
+  <p id="sidebarMatric" class="text-[10px] text-on-surface-variant">—</p>
+</div>
+
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-[280px] min-h-screen">
+<!-- Top App Bar (Medium) -->
+<header class="sticky top-0 w-full z-40 bg-surface-bright border-b border-outline-variant px-lg h-20 flex justify-between items-center md:px-xl">
+<div class="flex items-center gap-md">
+<button class="md:hidden hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary font-bold md:text-headline-lg">Dashboard Overview</h2>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95 relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hidden sm:flex items-center gap-2 bg-primary text-on-primary px-md py-sm rounded-full hover:opacity-90 transition-all font-label-md">
+<span class="material-symbols-outlined text-[20px]">search</span>
+                    Search
+                </button>
+</div>
+</header>
+<div class="p-md md:p-xl max-w-container-max mx-auto space-y-lg">
+<!-- Welcome Banner Section -->
+<section class="relative overflow-hidden rounded-3xl bg-primary-container p-lg md:p-2xl min-h-[200px] flex flex-col justify-center">
+
+<div class="relative z-10 max-w-2xl">
+<h3 id="welcomeName" class="font-headline-lg-mobile md:font-headline-lg text-white mb-base">Welcome back!</h3>
+<p id="welcomeMsg" class="text-on-primary-container text-body-md opacity-90"></p>
+<div class="mt-md flex gap-sm">
+<button class="bg-secondary-container text-on-secondary-container px-md py-sm rounded-xl font-label-md flex items-center gap-2 hover:scale-105 transition-transform">
+                            Resume Last Lesson
+                            <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Announcements and Attendance Summary -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+  <div class="md:col-span-2 bg-surface-container-lowest rounded-3xl p-lg shadow-sm border border-outline-variant">
+    <div class="flex items-center justify-between mb-md">
+      <div>
+        <h4 class="font-headline-sm text-headline-sm text-on-surface">Announcements</h4>
+        <p class="text-body-sm text-on-surface-variant">Latest messages from administration.</p>
+      </div>
+    </div>
+    <div id="announcementCards" class="space-y-md">
+      <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Loading announcements...</div>
+    </div>
+  </div>
+  <div class="bg-surface-container-lowest rounded-3xl p-lg shadow-sm border border-outline-variant">
+    <div class="flex items-center justify-between mb-md">
+      <div>
+        <h4 class="font-headline-sm text-headline-sm text-on-surface">Attendance</h4>
+        <p class="text-body-sm text-on-surface-variant">Recent attendance sessions for your cohort.</p>
+      </div>
+    </div>
+    <div id="attendanceCards" class="space-y-md">
+      <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Loading attendance sessions...</div>
+    </div>
+  </div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Enrolled Course Progress Card -->
+<div class="md:col-span-7 bg-surface-container-lowest rounded-3xl p-lg shadow-sm border border-outline-variant flex flex-col justify-between overflow-hidden relative">
+<div class="flex justify-between items-start mb-lg">
+<div>
+<span class="text-label-sm font-label-sm bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full mb-sm inline-block">Active Course</span>
+<h4 id="courseName" class="font-headline-sm text-headline-sm text-on-surface">Loading...</h4>
+<p id="courseSubtitle" class="text-body-sm text-on-surface-variant"></p>
+</div>
+<div class="w-12 h-12 bg-surface-container-high rounded-2xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">data_object</span>
+</div>
+</div>
+<div class="space-y-sm">
+<!-- Progress bar -->
+<div class="flex justify-between items-end">
+  <span class="text-label-md font-label-md text-primary">Overall Progress</span>
+  <span id="progressPercent" class="font-headline-sm text-headline-sm text-primary">0%</span>
+</div>
+<div class="h-4 w-full bg-surface-container-high rounded-full overflow-hidden">
+  <div id="progressBar" class="h-full bg-secondary-container rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+</div>
+<div class="flex justify-between text-label-sm text-on-surface-variant pt-base">
+  <span id="progressModules">0% completed</span>
+</div>
+</div>
+</div>
+<!-- Upcoming Assignment Card -->
+<div class="md:col-span-5 bg-surface-container-lowest rounded-3xl p-lg shadow-sm border border-outline-variant flex flex-col">
+<div class="flex items-center gap-md mb-md">
+<div class="w-10 h-10 bg-error-container text-on-error-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined">event</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Up Next</h4>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-md flex-1">
+<p id="upNextDueLabel" class="text-label-sm font-label-sm text-error mb-base">Loading...</p>
+<h5 id="upNextTitle" class="font-label-md text-label-md text-primary mb-sm">Loading next assignment...</h5>
+<p id="upNextDescription" class="text-body-sm text-on-surface-variant mb-md">Checking your pending tasks now.</p>
+<p id="upNextDueDate" class="text-label-sm text-on-surface-variant mb-md"></p>
+<button id="upNextButton" class="w-full py-sm bg-primary text-on-primary rounded-xl font-label-md hover:bg-primary-container transition-colors">
+    View Assignments
+</button>
+</div>
+</div>
+<!-- Instructor Card -->
+<div class="md:col-span-5 bg-surface-container-lowest rounded-3xl p-lg shadow-sm border border-outline-variant flex flex-col">
+  <div class="flex items-center gap-md mb-md">
+    <div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center">
+      <span class="material-symbols-outlined text-secondary-container">school</span>
+    </div>
+    <h4 class="font-headline-sm text-headline-sm text-on-surface">Your Instructor</h4>
+  </div>
+  <div class="bg-surface-container-low rounded-2xl p-md flex-1 flex flex-col justify-center">
+    <p id="instructorName" class="font-label-md text-label-md text-primary mb-xs">Loading...</p>
+    <p id="instructorEmail" class="text-body-sm text-on-surface-variant">—</p>
+  </div>
+</div>
+<!-- Recent Grades Table (Asymmetric Layout) -->
+<div class="md:col-span-12 bg-surface-container-lowest rounded-3xl p-lg shadow-sm border border-outline-variant">
+<div class="flex justify-between items-center mb-lg">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Recent Academic Records</h4>
+<button class="text-label-md font-label-md text-secondary hover:underline flex items-center gap-1">
+                            View All Transcript
+                            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</button>
+</div>
+<div class="overflow-x-auto scrollbar-hide">
+<table class="w-full text-left border-separate border-spacing-y-2">
+<thead>
+<tr class="text-label-md text-on-surface-variant font-label-md">
+<th class="pb-sm px-md">Subject / Assignment</th>
+<th class="pb-sm px-md">Date Submitted</th>
+<th class="pb-sm px-md">Status</th>
+<th class="pb-sm px-md text-right">Grade</th>
+</tr>
+</thead>
+<tbody id="recentRecordsBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full md:hidden rounded-t-xl z-50 bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center h-16 px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-secondary-fixed-dim bg-primary-container rounded-xl px-4 py-1 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] mt-0.5">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high rounded-xl p-2 transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-sm text-[10px] mt-0.5">Courses</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high rounded-xl p-2 transition-all" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-sm text-[10px] mt-0.5">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high rounded-xl p-2 transition-all" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-sm text-[10px] mt-0.5">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high rounded-xl p-2 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px] mt-0.5">Account</span>
+</a>
+</nav>
+<script>
+  const API_URL = "https://kwil-management-system-backend.onrender.com/api";
+  const getToken = () => localStorage.getItem("kil_token");
+  const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
+
+  // Protect page — only STUDENT can access
+  const user = getUser();
+  const token = getToken();
+  if (!token || !user || user.role !== "STUDENT") {
+    window.location.href = "index.html";
+  }
+
+  // Load student profile, progress, assignments, announcements and attendance
+  async function loadDashboard() {
+    try {
+      const [profileRes, progressRes, assignmentsRes, announcementsRes, attendanceRes] = await Promise.all([
+        fetch(`${API_URL}/student/profile`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/student/progress`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/student/assignments`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/student/announcements`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/student/attendance-sessions`, { headers: { Authorization: `Bearer ${token}` } }),
+      ]);
+
+      const [profileData, progressData, assignmentsData, announcementsData, attendanceData] = await Promise.all([
+        profileRes.json(),
+        progressRes.json(),
+        assignmentsRes.json(),
+        announcementsRes.json(),
+        attendanceRes.json(),
+      ]);
+
+      const assignments = assignmentsData.assignments || [];
+      const announcements = announcementsData.announcements || [];
+      const attendanceSessions = attendanceData.sessions || [];
+
+      renderDashboard(profileData.student, progressData, assignments, announcements, attendanceSessions);
+    } catch (err) {
+      console.error("Failed to load dashboard:", err);
+      document.getElementById('upNextDueLabel').textContent = "Unable to load assignments";
+      document.getElementById('upNextTitle').textContent = "Please refresh the page.";
+      document.getElementById('announcementCards').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load announcements.</div>`;
+      document.getElementById('attendanceCards').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load attendance sessions.</div>`;
+    }
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return "—";
+    return new Date(dateStr).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
+  function getRelativeDueLabel(dueDate) {
+    const now = new Date();
+    const due = new Date(dueDate);
+    const diffDays = Math.ceil((due - now) / (1000 * 60 * 60 * 24));
+    if (diffDays < 0) return `OVERDUE ${Math.abs(diffDays)} DAY${Math.abs(diffDays) === 1 ? "" : "S"}`;
+    if (diffDays === 0) return "DUE TODAY";
+    if (diffDays === 1) return "DUE IN 1 DAY";
+    return `DUE IN ${diffDays} DAYS`;
+  }
+
+  function renderDashboard(student, progress, assignments, announcements, attendanceSessions) {
+    const fullName = student.user.fullName;
+    const firstName = fullName.split(" ")[0];
+    const course = student.course || "No course assigned";
+    const cohort = student.cohort || "No cohort";
+    const progressVal = progress.progress || 0;
+    const matric = student.matricNumber || "—";
+    const instructor = progress.instructor;
+
+    // Welcome banner
+    document.getElementById('welcomeName').textContent = `Welcome back, ${firstName}!`;
+    document.getElementById('welcomeMsg').textContent =
+      `Your learning journey at Kwara Innovation Lab is ${progressVal}% complete. Keep up the great work in your ${course} module!`;
+
+    // Sidebar student info
+    document.getElementById('sidebarName').textContent = fullName;
+    document.getElementById('sidebarMatric').textContent = matric;
+    document.getElementById('sidebarInitials').textContent =
+      fullName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+
+    // Course card
+    document.getElementById('courseName').textContent = course;
+    document.getElementById('courseSubtitle').textContent = `Cohort: ${cohort}`;
+    document.getElementById('progressBar').style.width = `${progressVal}%`;
+    document.getElementById('progressPercent').textContent = `${progressVal}%`;
+    document.getElementById('progressModules').textContent = `${progressVal}% completed`;
+
+    // Instructor info
+    if (instructor) {
+      document.getElementById('instructorName').textContent = instructor.name;
+      document.getElementById('instructorEmail').textContent = instructor.email;
+    } else {
+      document.getElementById('instructorName').textContent = "No instructor assigned";
+      document.getElementById('instructorEmail').textContent = "—";
+    }
+
+    renderUpcomingAssignment(assignments);
+    renderRecentAcademicRecords(assignments);
+    renderAnnouncements(announcements);
+    renderAttendance(attendanceSessions);
+  }
+
+  function renderUpcomingAssignment(assignments) {
+    const pendingAssignments = assignments.filter(a => !a.submissions?.length || a.submissions[0].status === "PENDING");
+    const nextAssignment = pendingAssignments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))[0];
+    const dueLabelEl = document.getElementById('upNextDueLabel');
+    const titleEl = document.getElementById('upNextTitle');
+    const descEl = document.getElementById('upNextDescription');
+    const dateEl = document.getElementById('upNextDueDate');
+    const buttonEl = document.getElementById('upNextButton');
+
+    if (nextAssignment) {
+      dueLabelEl.textContent = getRelativeDueLabel(nextAssignment.dueDate);
+      titleEl.textContent = nextAssignment.title;
+      descEl.textContent = nextAssignment.description || "Submit this assignment before the due date to stay on track.";
+      dateEl.textContent = `Due: ${formatDate(nextAssignment.dueDate)}`;
+      buttonEl.textContent = "View Assignment";
+      buttonEl.onclick = () => window.location.href = "student-assignments.html";
+    } else {
+      dueLabelEl.textContent = "All caught up!";
+      titleEl.textContent = "No pending assignments";
+      descEl.textContent = "You have completed or submitted all available assignments for your course and cohort.";
+      dateEl.textContent = "";
+      buttonEl.textContent = "View All Assignments";
+      buttonEl.onclick = () => window.location.href = "student-assignments.html";
+    }
+  }
+
+  function renderRecentAcademicRecords(assignments) {
+    const recentRecordsBody = document.getElementById('recentRecordsBody');
+    const records = assignments
+      .filter(a => a.submissions?.length)
+      .map(a => {
+        const sub = a.submissions[0];
+        return {
+          title: a.title,
+          date: sub.submittedAt || a.dueDate,
+          status: sub.status === "GRADED" ? "Graded" : sub.status === "SUBMITTED" ? "Submitted" : "Pending",
+          grade: sub.grade != null ? `${sub.grade}/100` : "-",
+          icon: a.title.toLowerCase().includes("quiz") ? "terminal" : a.title.toLowerCase().includes("sql") ? "database" : "assignment",
+        };
+      })
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 3);
+
+    if (!records.length) {
+      recentRecordsBody.innerHTML = `
+        <tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+          <td colspan="4" class="py-md px-md text-center text-on-surface-variant">No academic records available yet. Start submitting assignments to see your recent grades here.</td>
+        </tr>`;
+      return;
+    }
+
+    recentRecordsBody.innerHTML = records.map(record => `
+      <tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+        <td class="py-md px-md rounded-l-2xl">
+          <div class="flex items-center gap-sm">
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">${record.icon}</span>
+            <span class="font-label-md text-primary">${record.title}</span>
+          </div>
+        </td>
+        <td class="py-md px-md text-body-sm text-on-surface-variant">${formatDate(record.date)}</td>
+        <td class="py-md px-md">
+          <span class="${record.status === 'Graded' ? 'bg-green-100 text-green-700' : record.status === 'Submitted' ? 'bg-primary-fixed text-on-primary-fixed-variant' : 'bg-error-container text-on-error-container'} text-[10px] px-2 py-1 rounded-full font-bold uppercase">${record.status}</span>
+        </td>
+        <td class="py-md px-md rounded-r-2xl text-right font-headline-sm text-primary">${record.grade}</td>
+      </tr>`).join("");
+  }
+
+  function renderAnnouncements(announcements) {
+    const announcementCards = document.getElementById('announcementCards');
+    if (!announcements || !announcements.length) {
+      announcementCards.innerHTML = `
+        <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">No announcements available yet.</div>`;
+      return;
+    }
+
+    announcementCards.innerHTML = announcements.slice(0, 3).map(item => `
+      <article class="p-lg rounded-3xl bg-white border border-outline-variant shadow-sm">
+        <div class="flex items-center justify-between gap-sm mb-sm">
+          <div>
+            <h5 class="font-label-md text-primary">${item.title}</h5>
+            <p class="text-label-sm text-on-surface-variant">All students · ${formatDate(item.createdAt)}</p>
+          </div>
+          <span class="text-label-sm text-secondary-container font-bold uppercase">Announcement</span>
+        </div>
+        <p class="text-body-sm text-on-surface-variant">${item.message}</p>
+      </article>`).join('');
+  }
+
+  function renderAttendance(sessions) {
+    const attendanceCards = document.getElementById('attendanceCards');
+    if (!sessions || !sessions.length) {
+      attendanceCards.innerHTML = `
+        <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">No attendance sessions have been recorded yet.</div>`;
+      return;
+    }
+
+    attendanceCards.innerHTML = sessions.slice(0, 3).map(session => `
+      <div class="p-lg rounded-3xl bg-white border border-outline-variant shadow-sm">
+        <div class="flex items-center justify-between gap-sm mb-sm">
+          <div>
+            <h5 class="font-label-md text-primary">${session.title || session.course || 'General Session'}</h5>
+            <p class="text-label-sm text-on-surface-variant">${formatDate(session.date)} · ${session.course || session.cohort || 'All cohorts'}</p>
+          </div>
+          <a href="student-attendance.html" class="text-label-sm text-tertiary-container bg-tertiary-fixed px-3 py-1 rounded-full uppercase">Mark Attendance</a>
+        </div>
+        <p class="text-body-sm text-on-surface-variant">${session.notes || 'No special note provided.'}</p>
+      </div>`).join('');
+  }
+
+  // Logout
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem("kil_token");
+    localStorage.removeItem("kil_user");
+    window.location.href = "index.html";
+  });
+
+  // Mobile sidebar toggle
+  const menuBtn = document.querySelector('header button');
+  const sidebar = document.getElementById('main-sidebar');
+  menuBtn?.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('flex');
+  });
+
+  // Micro-interactions
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mousedown', () => el.style.transform = 'scale(0.98)');
+    el.addEventListener('mouseup', () => el.style.transform = '');
+    el.addEventListener('mouseleave', () => el.style.transform = '');
+  });
+
+  loadDashboard();
+</script>
+</body></html>

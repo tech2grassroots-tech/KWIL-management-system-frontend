@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cohorts & Courses | Kwara Innovation Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#c4c7c9","surface-container-lowest": "#ffffff","on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bbc7df","secondary-container": "#feae2c","on-secondary": "#ffffff",
+                    "on-surface": "#0b1c30","on-secondary-container": "#6b4500","error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3c475b","surface-variant": "#d3e4fe","on-surface-variant": "#45474c",
+                    "outline": "#75777d","on-background": "#0b1c30","secondary": "#835500",
+                    "on-tertiary-fixed-variant": "#444749","surface-container-highest": "#d3e4fe","on-tertiary-container": "#818486",
+                    "inverse-on-surface": "#eaf1ff","outline-variant": "#c5c6cd","surface-container": "#e5eeff",
+                    "secondary-fixed-dim": "#ffb955","on-primary-container": "#79849b","surface-container-high": "#dce9ff",
+                    "error": "#ba1a1a","surface-container-low": "#eff4ff","surface-dim": "#cbdbf5",
+                    "surface-bright": "#f8f9ff","inverse-surface": "#213145","primary": "#000000",
+                    "secondary-fixed": "#ffddb4","surface-tint": "#535f74","on-error-container": "#93000a",
+                    "primary-fixed": "#d7e3fc","on-tertiary": "#ffffff","tertiary-container": "#191c1e",
+                    "surface": "#f8f9ff","on-secondary-fixed": "#291800","on-secondary-fixed-variant": "#633f00",
+                    "on-tertiary-fixed": "#191c1e","primary-container": "#101c2e","on-error": "#ffffff",
+                    "tertiary": "#000000","tertiary-fixed": "#e0e3e5","inverse-primary": "#bbc7df",
+                    "on-primary-fixed": "#101c2e","background": "#f8f9ff"
+            },
+            "borderRadius": {"DEFAULT": "0.25rem","lg": "0.5rem","xl": "0.75rem","full": "9999px"},
+            "spacing": {"2xl": "48px","3xl": "64px","xl": "32px","base": "4px","gutter": "24px","md": "16px","xs": "4px","container-max": "1440px","lg": "24px","sm": "8px"},
+            "fontFamily": {"headline-lg": ["Plus Jakarta Sans"],"body-lg": ["Inter"],"headline-lg-mobile": ["Plus Jakarta Sans"],"body-md": ["Inter"],"display-lg": ["Plus Jakarta Sans"],"body-sm": ["Inter"],"headline-sm": ["Plus Jakarta Sans"],"label-sm": ["Inter"],"label-md": ["Inter"],"headline-md": ["Plus Jakarta Sans"]},
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #c5c6cd; border-radius: 10px; }
+        .glass-header { backdrop-filter: blur(8px); background-color: rgba(248, 249, 255, 0.8); }
+        .tab-active { border-bottom: 3px solid #feae2c; color: #000; font-weight: 700; }
+    </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Sidebar -->
+<aside class="fixed h-full w-[280px] left-0 top-0 border-r border-outline-variant bg-surface hidden md:flex flex-col py-lg z-50" id="main-nav">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Kwara Innovation Lab</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="admin-dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="students.html">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Student Management</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="instructors.html">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Instructors</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-primary font-bold border-l-4 border-secondary-container bg-surface-container-low" href="cohorts-courses.html">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-md text-label-md">Cohorts & Courses</span>
+</a>
+</nav>
+<div class="px-md mt-auto pt-lg border-t border-outline-variant">
+<button id="logoutBtn" class="flex items-center gap-md px-md py-sm text-error hover:bg-error-container/20 transition-colors w-full rounded-lg">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</button>
+</div>
+</aside>
+
+<!-- Main Content -->
+<main class="md:ml-[280px] min-h-screen pb-20 md:pb-0">
+<header class="sticky top-0 w-full z-40 flex justify-between items-center h-20 px-lg bg-surface-bright border-b border-outline-variant shadow-sm glass-header">
+<div class="flex items-center gap-md">
+<button class="md:hidden hover:bg-surface-container rounded-full p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary">Cohorts & Courses</h2>
+</div>
+</header>
+
+<section class="p-md md:p-xl max-w-5xl mx-auto">
+<!-- Tabs -->
+<div class="flex border-b border-outline-variant mb-lg">
+<button id="tabCohorts" onclick="switchTab('cohorts')" class="px-lg py-md font-label-md tab-active">Cohorts</button>
+<button id="tabCourses" onclick="switchTab('courses')" class="px-lg py-md font-label-md text-on-surface-variant">Courses</button>
+</div>
+
+<!-- Cohorts Panel -->
+<div id="cohortsPanel">
+  <div class="flex justify-between items-center mb-md">
+    <h3 class="font-headline-sm text-headline-sm text-primary">All Cohorts</h3>
+    <button onclick="document.getElementById('newCohortModal').classList.remove('hidden')" class="bg-primary text-on-primary px-md py-sm rounded-lg font-label-md flex items-center gap-2 hover:opacity-90">
+      <span class="material-symbols-outlined text-[20px]">add</span> New Cohort
+    </button>
+  </div>
+  <div id="cohortsList" class="space-y-md"></div>
+</div>
+
+<!-- Courses Panel -->
+<div id="coursesPanel" class="hidden">
+  <div class="flex justify-between items-center mb-md">
+    <h3 class="font-headline-sm text-headline-sm text-primary">All Courses</h3>
+    <button onclick="document.getElementById('newCourseModal').classList.remove('hidden')" class="bg-primary text-on-primary px-md py-sm rounded-lg font-label-md flex items-center gap-2 hover:opacity-90">
+      <span class="material-symbols-outlined text-[20px]">add</span> New Course
+    </button>
+  </div>
+  <div id="coursesList" class="space-y-md"></div>
+</div>
+</section>
+</main>
+
+<!-- New Cohort Modal -->
+<div id="newCohortModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">New Cohort</h3>
+      <button onclick="document.getElementById('newCohortModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form onsubmit="createCohort(event)" class="space-y-md">
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Cohort Name</label>
+        <input id="cohortName" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm" placeholder="Cohort 2026"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Start Date</label>
+        <input id="cohortStart" type="date" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">End Date (optional)</label>
+        <input id="cohortEnd" type="date" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Status</label>
+        <select id="cohortStatus" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm">
+          <option value="UPCOMING">Upcoming</option>
+          <option value="ACTIVE" selected>Active</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('newCohortModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">Cancel</button>
+        <button type="submit" id="cohortSubmitBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- New Course Modal -->
+<div id="newCourseModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">New Course</h3>
+      <button onclick="document.getElementById('newCourseModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form onsubmit="createCourse(event)" class="space-y-md">
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Course Name</label>
+        <input id="courseName" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm" placeholder="Frontend Development"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Description (optional)</label>
+        <textarea id="courseDescription" rows="3" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm" placeholder="Brief description of the course"></textarea>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('newCourseModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">Cancel</button>
+        <button type="submit" id="courseSubmitBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const API_URL = "https://kwil-management-system-backend.onrender.com/api";
+  const getToken = () => localStorage.getItem("kil_token");
+  const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
+
+  const user = getUser();
+  const token = getToken();
+  if (!token || !user || user.role !== "ADMIN") {
+    window.location.href = "index.html";
+  }
+
+  function switchTab(tab) {
+    document.getElementById('cohortsPanel').classList.toggle('hidden', tab !== 'cohorts');
+    document.getElementById('coursesPanel').classList.toggle('hidden', tab !== 'courses');
+    document.getElementById('tabCohorts').className = `px-lg py-md font-label-md ${tab === 'cohorts' ? 'tab-active' : 'text-on-surface-variant'}`;
+    document.getElementById('tabCourses').className = `px-lg py-md font-label-md ${tab === 'courses' ? 'tab-active' : 'text-on-surface-variant'}`;
+  }
+
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  const statusColors = {
+    ACTIVE: "bg-green-100 text-green-700",
+    UPCOMING: "bg-secondary-fixed text-on-secondary-fixed-variant",
+    COMPLETED: "bg-surface-container text-on-surface-variant",
+  };
+
+  async function loadCohorts() {
+    try {
+      const res = await fetch(`${API_URL}/catalog/cohorts`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await res.json();
+      const cohorts = data.cohorts || [];
+      const container = document.getElementById('cohortsList');
+
+      if (!cohorts.length) {
+        container.innerHTML = `<div class="bg-white rounded-xl border border-outline-variant p-xl text-center text-on-surface-variant font-body-sm">No cohorts yet. Create one to get started.</div>`;
+        return;
+      }
+
+      container.innerHTML = cohorts.map(c => `
+        <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-lg flex justify-between items-center">
+          <div>
+            <div class="flex items-center gap-md mb-xs">
+              <h4 class="font-headline-sm text-headline-sm text-primary">${c.name}</h4>
+              <span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase ${statusColors[c.status]}">${c.status}</span>
+            </div>
+            <p class="text-body-sm text-on-surface-variant">${formatDate(c.startDate)}${c.endDate ? ' — ' + formatDate(c.endDate) : ''} • ${c.studentCount} student${c.studentCount !== 1 ? 's' : ''}</p>
+          </div>
+          <button onclick="deleteCohort('${c.id}')" class="p-2 hover:bg-error-container rounded-lg text-error">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </div>
+      `).join("");
+    } catch (err) {
+      console.error("Failed to load cohorts:", err);
+    }
+  }
+
+  async function loadCourses() {
+    try {
+      const res = await fetch(`${API_URL}/catalog/courses`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await res.json();
+      const courses = data.courses || [];
+      const container = document.getElementById('coursesList');
+
+      if (!courses.length) {
+        container.innerHTML = `<div class="bg-white rounded-xl border border-outline-variant p-xl text-center text-on-surface-variant font-body-sm">No courses yet. Create one to get started.</div>`;
+        return;
+      }
+
+      container.innerHTML = courses.map(c => `
+        <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-lg flex justify-between items-center">
+          <div>
+            <h4 class="font-headline-sm text-headline-sm text-primary">${c.name}</h4>
+            <p class="text-body-sm text-on-surface-variant">${c.description || "No description"}</p>
+          </div>
+          <button onclick="deleteCourse('${c.id}')" class="p-2 hover:bg-error-container rounded-lg text-error">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </div>
+      `).join("");
+    } catch (err) {
+      console.error("Failed to load courses:", err);
+    }
+  }
+
+  async function createCohort(e) {
+    e.preventDefault();
+    const btn = document.getElementById('cohortSubmitBtn');
+    btn.disabled = true;
+    btn.textContent = "Creating...";
+
+    try {
+      const res = await fetch(`${API_URL}/catalog/cohorts`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: document.getElementById('cohortName').value,
+          startDate: document.getElementById('cohortStart').value,
+          endDate: document.getElementById('cohortEnd').value || null,
+          status: document.getElementById('cohortStatus').value,
+        }),
+      });
+      if (res.ok) {
+        document.getElementById('newCohortModal').classList.add('hidden');
+        document.querySelector('#newCohortModal form').reset();
+        loadCohorts();
+      } else {
+        const data = await res.json();
+        alert(data.message || "Failed to create cohort");
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Create";
+    }
+  }
+
+  async function createCourse(e) {
+    e.preventDefault();
+    const btn = document.getElementById('courseSubmitBtn');
+    btn.disabled = true;
+    btn.textContent = "Creating...";
+
+    try {
+      const res = await fetch(`${API_URL}/catalog/courses`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: document.getElementById('courseName').value,
+          description: document.getElementById('courseDescription').value,
+        }),
+      });
+      if (res.ok) {
+        document.getElementById('newCourseModal').classList.add('hidden');
+        document.querySelector('#newCourseModal form').reset();
+        loadCourses();
+      } else {
+        const data = await res.json();
+        alert(data.message || "Failed to create course");
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Create";
+    }
+  }
+
+  async function deleteCohort(id) {
+    if (!confirm("Delete this cohort? This won't remove students already assigned to it.")) return;
+    try {
+      const res = await fetch(`${API_URL}/catalog/cohorts/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) loadCohorts();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function deleteCourse(id) {
+    if (!confirm("Delete this course? This won't remove students already assigned to it.")) return;
+    try {
+      const res = await fetch(`${API_URL}/catalog/courses/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) loadCourses();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem("kil_token");
+    localStorage.removeItem("kil_user");
+    window.location.href = "index.html";
+  });
+
+  const menuBtn = document.querySelector('header button');
+  const sidebar = document.getElementById('main-nav');
+  menuBtn?.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('flex');
+  });
+
+  loadCohorts();
+  loadCourses();
+</script>
+</body></html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Profile | Kwara Innovation Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#c4c7c9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bbc7df",
+                    "secondary-container": "#feae2c",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#0b1c30",
+                    "on-secondary-container": "#6b4500",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3c475b",
+                    "surface-variant": "#d3e4fe",
+                    "on-surface-variant": "#45474c",
+                    "outline": "#75777d",
+                    "on-background": "#0b1c30",
+                    "secondary": "#835500",
+                    "on-tertiary-fixed-variant": "#444749",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary-container": "#818486",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c5c6cd",
+                    "surface-container": "#e5eeff",
+                    "secondary-fixed-dim": "#ffb955",
+                    "on-primary-container": "#79849b",
+                    "surface-container-high": "#dce9ff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#eff4ff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-bright": "#f8f9ff",
+                    "inverse-surface": "#213145",
+                    "primary": "#000000",
+                    "secondary-fixed": "#ffddb4",
+                    "surface-tint": "#535f74",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d7e3fc",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#191c1e",
+                    "surface": "#f8f9ff",
+                    "on-secondary-fixed": "#291800",
+                    "on-secondary-fixed-variant": "#633f00",
+                    "on-tertiary-fixed": "#191c1e",
+                    "primary-container": "#101c2e",
+                    "on-error": "#ffffff",
+                    "tertiary": "#000000",
+                    "tertiary-fixed": "#e0e3e5",
+                    "inverse-primary": "#bbc7df",
+                    "on-primary-fixed": "#101c2e",
+                    "background": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "2xl": "48px",
+                    "3xl": "64px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "container-max": "1440px",
+                    "lg": "24px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["Inter"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .progress-bar-glow {
+            box-shadow: 0 0 12px rgba(254, 174, 44, 0.3);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md text-body-md overflow-x-hidden">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex fixed h-full w-[280px] left-0 top-0 border-r border-outline-variant bg-surface flex-col py-lg z-50">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Kwara Innovation Lab</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-primary font-bold border-l-4 border-secondary-container bg-surface-container-low" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Student Management</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-md text-label-md">Course Modules</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Instructors</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-md pt-md border-t border-outline-variant">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">AD</div>
+<div>
+<p class="font-label-md text-label-md">Admin User</p>
+<p class="text-xs text-on-surface-variant">v1.0.4</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="sticky top-0 w-full z-40 bg-surface-bright border-b border-outline-variant md:pl-[280px]">
+<div class="flex justify-between items-center h-20 px-lg w-full">
+<div class="flex items-center gap-md">
+<button class="md:hidden hover:bg-surface-container rounded-full p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary">Student Profile</h2>
+</div>
+<div class="flex items-center gap-md">
+<button class="hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="hover:bg-surface-container rounded-full p-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-[280px] p-md md:p-xl pb-24 md:pb-xl">
+<div class="max-w-container-max mx-auto space-y-lg">
+<!-- Header/Breadcrumb (Mobile only label) -->
+<div id="backBtn" class="flex items-center text-on-surface-variant gap-xs cursor-pointer">
+  <span class="material-symbols-outlined text-sm">arrow_back</span>
+  <span class="font-label-sm text-label-sm">Back to Management</span>
+</div>
+
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Profile Summary Card -->
+<div class="md:col-span-4 space-y-gutter">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg overflow-hidden relative">
+<div class="flex flex-col items-center text-center">
+<div class="relative mb-md">
+<div class="w-32 h-32 rounded-full bg-primary-container flex items-center justify-center border-4 border-surface-variant shadow-md">
+  <span id="avatarInitials" class="text-4xl font-bold text-secondary-container"></span>
+</div>
+<span class="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-4 border-surface-container-lowest rounded-full"></span>
+</div>
+<h3 id="studentName" class="font-headline-sm text-headline-sm text-primary">Loading...</h3>
+<p id="studentCourse" class="font-label-md text-label-md text-on-surface-variant mb-md"></p>
+<div class="flex gap-sm mb-lg">
+<span id="studentStatusBadge" class="bg-surface-variant text-primary px-sm py-xs rounded-lg font-label-sm text-label-sm"></span>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-sm py-xs rounded-lg font-label-sm text-label-sm">Top Performer</span>
+</div>
+<div class="w-full space-y-md text-left pt-lg border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+  <span class="material-symbols-outlined text-primary text-md">mail</span>
+  <span id="studentEmail" class="font-body-sm text-body-sm">—</span>
+</div>
+<div class="flex items-center gap-sm">
+  <span class="material-symbols-outlined text-primary text-md">phone</span>
+  <span id="studentPhone" class="font-body-sm text-body-sm">—</span>
+</div>
+<div class="flex items-center gap-sm">
+  <span class="material-symbols-outlined text-primary text-md">badge</span>
+  <span id="studentMatric" class="font-body-sm text-body-sm">—</span>
+</div>
+<div class="flex items-center gap-sm">
+  <span class="material-symbols-outlined text-primary text-md">calendar_today</span>
+  <span id="studentJoined" class="font-body-sm text-body-sm">—</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Instructor Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-md">Assigned Instructor</h4>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<p id="instructorName" class="font-headline-sm text-headline-sm text-primary">Loading...</p>
+<p id="instructorSpeciality" class="font-body-sm text-body-sm text-on-surface-variant">—</p>
+</div>
+</div>
+<button class="w-full mt-lg py-sm px-md border border-outline text-primary rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">
+                            Message Instructor
+                        </button>
+</div>
+</div>
+<!-- Course Progress & Content -->
+<div class="md:col-span-8 space-y-gutter">
+<!-- Progress Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg">
+<div class="flex justify-between items-center mb-lg">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary">Course Progress</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Curriculum: Advanced Web Architecture</p>
+</div>
+<div class="text-right">
+<span id="progressPercent" class="font-headline-md text-headline-md text-secondary">0%</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Completion</p>
+</div>
+</div>
+<!-- Premium Progress Bar -->
+<div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden mb-lg">
+  <div id="progressBar" class="h-full bg-secondary-container progress-bar-glow rounded-full transition-all duration-1000" style="width: 0%"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Modules</p>
+<p class="font-headline-sm text-headline-sm text-primary">12/15</p>
+</div>
+<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Attend.</p>
+<p class="font-headline-sm text-headline-sm text-primary">94%</p>
+</div>
+<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Quizzes</p>
+<p class="font-headline-sm text-headline-sm text-primary">8.5/10</p>
+</div>
+<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Projects</p>
+<p class="font-headline-sm text-headline-sm text-primary">04</p>
+</div>
+</div>
+</div>
+<!-- Assignment History Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="font-headline-sm text-headline-sm text-primary">Assignment History</h3>
+<button class="text-secondary font-label-md text-label-md hover:underline">Download Report</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-high">
+<tr>
+<th class="px-lg py-sm font-label-md text-label-md text-on-surface-variant">Task Name</th>
+<th class="px-lg py-sm font-label-md text-label-md text-on-surface-variant">Due Date</th>
+<th class="px-lg py-sm font-label-md text-label-md text-on-surface-variant">Status</th>
+<th class="px-lg py-sm font-label-md text-label-md text-on-surface-variant text-right">Score</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-primary font-semibold">Database Schema Design</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Module 4: Persistence</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Oct 12, 2023</td>
+<td class="px-lg py-md">
+<span class="bg-green-100 text-green-800 px-sm py-1 rounded-full text-xs font-bold uppercase tracking-tight">Completed</span>
+</td>
+<td class="px-lg py-md text-right font-headline-sm text-headline-sm text-primary">95/100</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-primary font-semibold">RESTful API Integration</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Module 5: Connectivity</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Oct 28, 2023</td>
+<td class="px-lg py-md">
+<span class="bg-green-100 text-green-800 px-sm py-1 rounded-full text-xs font-bold uppercase tracking-tight">Completed</span>
+</td>
+<td class="px-lg py-md text-right font-headline-sm text-headline-sm text-primary">88/100</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-primary font-semibold">State Management Strategy</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Module 6: Frontend</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Nov 15, 2023</td>
+<td class="px-lg py-md">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-sm py-1 rounded-full text-xs font-bold uppercase tracking-tight">Pending Review</span>
+</td>
+<td class="px-lg py-md text-right font-headline-sm text-headline-sm text-primary">--</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-primary font-semibold">Deployment &amp; CI/CD Pipeline</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Module 7: DevOps</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Nov 30, 2023</td>
+<td class="px-lg py-md">
+<span class="bg-surface-variant text-on-surface-variant px-sm py-1 rounded-full text-xs font-bold uppercase tracking-tight">Upcoming</span>
+</td>
+<td class="px-lg py-md text-right font-headline-sm text-headline-sm text-primary">--</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Back link -->
+
+
+<!-- Deactivate button — add inside profile card -->
+<button id="deactivateBtn" class="w-full mt-md py-sm px-md border border-error text-error rounded-lg font-label-md text-label-md hover:bg-error-container transition-colors">
+  Deactivate Student
+</button>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="fixed bottom-0 w-full md:hidden bg-surface border-t border-outline-variant flex justify-around items-center h-16 px-4 pb-safe z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm-mobile">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary-fixed-dim bg-primary-container rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm-mobile">Students</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-sm text-label-sm-mobile">Courses</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm-mobile">Account</span>
+</a>
+</nav>
+<!-- Floating Action Button (Contextual: Add Note) -->
+<button class="fixed bottom-20 right-6 md:bottom-10 md:right-10 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined">edit_note</span>
+</button>
+<script>
+  const API_URL = "https://kwil-management-system-backend.onrender.com/api";
+  const getToken = () => localStorage.getItem("kil_token");
+  const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
+
+  // Protect page
+  const user = getUser();
+  const token = getToken();
+  if (!token || !user || user.role !== "ADMIN") {
+    window.location.href = "index.html";
+  }
+
+  // Get student ID from URL
+  const params = new URLSearchParams(window.location.search);
+  const studentId = params.get("id");
+  if (!studentId) window.location.href = "students.html";
+
+  // Load student profile
+  async function loadStudent() {
+    try {
+      const res = await fetch(`${API_URL}/admin/users/${studentId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      const s = data.user;
+
+      if (!s) {
+        window.location.href = "students.html";
+        return;
+      }
+
+      renderProfile(s);
+    } catch (err) {
+      console.error("Failed to load student:", err);
+    }
+  }
+
+  function getInitials(name) {
+    return name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+  }
+
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("en-GB", {
+      day: "numeric", month: "short", year: "numeric"
+    });
+  }
+
+  function renderProfile(s) {
+    const progress = s.student?.progress || 0;
+
+    // Avatar initials
+    document.getElementById('avatarInitials').textContent = getInitials(s.fullName);
+
+    // Basic info
+    document.getElementById('studentName').textContent = s.fullName;
+    document.getElementById('studentCourse').textContent =
+      `${s.student?.course || "No course"} • ${s.student?.cohort || "No cohort"}`;
+    document.getElementById('studentEmail').textContent = s.email;
+    document.getElementById('studentPhone').textContent = s.phone || "Not provided";
+    document.getElementById('studentMatric').textContent =
+      s.student?.matricNumber || "Not assigned";
+    document.getElementById('studentStatus').textContent = s.status;
+    document.getElementById('studentJoined').textContent = formatDate(s.createdAt);
+
+    // Status badge color
+    const statusBadge = document.getElementById('studentStatusBadge');
+    statusBadge.textContent = s.status;
+    statusBadge.className = `px-sm py-xs rounded-lg font-label-sm text-label-sm 
+      ${s.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-error-container text-on-error-container'}`;
+
+    // Progress bar
+    document.getElementById('progressBar').style.width = `${progress}%`;
+    document.getElementById('progressPercent').textContent = `${progress}%`;
+    document.getElementById('progressLabel').textContent = `${progress}%`;
+
+    // Instructor
+    if (s.student?.instructor) {
+      document.getElementById('instructorName').textContent =
+        s.student.instructor.user?.fullName || "Assigned";
+      document.getElementById('instructorSpeciality').textContent =
+        s.student.instructor.speciality || "Instructor";
+    } else {
+      document.getElementById('instructorName').textContent = "Not assigned";
+      document.getElementById('instructorSpeciality').textContent = "—";
+    }
+  }
+
+  // Back button
+  document.getElementById('backBtn')?.addEventListener('click', () => {
+    window.location.href = "students.html";
+  });
+
+  // Deactivate button
+  document.getElementById('deactivateBtn')?.addEventListener('click', async () => {
+    if (!confirm("Are you sure you want to deactivate this student?")) return;
+    try {
+      const res = await fetch(`${API_URL}/admin/users/${studentId}/deactivate`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        alert("Student deactivated successfully");
+        loadStudent();
+      }
+    } catch (err) {
+      console.error("Failed to deactivate:", err);
+    }
+  });
+
+  loadStudent();
+</script>
+</body></html>

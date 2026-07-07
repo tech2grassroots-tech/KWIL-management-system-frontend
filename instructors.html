@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Instructor Management | Kwara Innovation Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#c4c7c9","surface-container-lowest": "#ffffff","on-primary": "#ffffff",
+                    "primary-fixed-dim": "#bbc7df","secondary-container": "#feae2c","on-secondary": "#ffffff",
+                    "on-surface": "#0b1c30","on-secondary-container": "#6b4500","error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3c475b","surface-variant": "#d3e4fe","on-surface-variant": "#45474c",
+                    "outline": "#75777d","on-background": "#0b1c30","secondary": "#835500",
+                    "on-tertiary-fixed-variant": "#444749","surface-container-highest": "#d3e4fe","on-tertiary-container": "#818486",
+                    "inverse-on-surface": "#eaf1ff","outline-variant": "#c5c6cd","surface-container": "#e5eeff",
+                    "secondary-fixed-dim": "#ffb955","on-primary-container": "#79849b","surface-container-high": "#dce9ff",
+                    "error": "#ba1a1a","surface-container-low": "#eff4ff","surface-dim": "#cbdbf5",
+                    "surface-bright": "#f8f9ff","inverse-surface": "#213145","primary": "#000000",
+                    "secondary-fixed": "#ffddb4","surface-tint": "#535f74","on-error-container": "#93000a",
+                    "primary-fixed": "#d7e3fc","on-tertiary": "#ffffff","tertiary-container": "#191c1e",
+                    "surface": "#f8f9ff","on-secondary-fixed": "#291800","on-secondary-fixed-variant": "#633f00",
+                    "on-tertiary-fixed": "#191c1e","primary-container": "#101c2e","on-error": "#ffffff",
+                    "tertiary": "#000000","tertiary-fixed": "#e0e3e5","inverse-primary": "#bbc7df",
+                    "on-primary-fixed": "#101c2e","background": "#f8f9ff"
+            },
+            "borderRadius": {"DEFAULT": "0.25rem","lg": "0.5rem","xl": "0.75rem","full": "9999px"},
+            "spacing": {"2xl": "48px","3xl": "64px","xl": "32px","base": "4px","gutter": "24px","md": "16px","xs": "4px","container-max": "1440px","lg": "24px","sm": "8px"},
+            "fontFamily": {"headline-lg": ["Plus Jakarta Sans"],"body-lg": ["Inter"],"headline-lg-mobile": ["Plus Jakarta Sans"],"body-md": ["Inter"],"display-lg": ["Plus Jakarta Sans"],"body-sm": ["Inter"],"headline-sm": ["Plus Jakarta Sans"],"label-sm": ["Inter"],"label-md": ["Inter"],"headline-md": ["Plus Jakarta Sans"]},
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #c5c6cd; border-radius: 10px; }
+        .glass-header { backdrop-filter: blur(8px); background-color: rgba(248, 249, 255, 0.8); }
+    </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Sidebar -->
+<aside class="fixed h-full w-[280px] left-0 top-0 border-r border-outline-variant bg-surface hidden md:flex flex-col py-lg z-50" id="main-nav">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Kwara Innovation Lab</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="admin-dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" href="students.html">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Student Management</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-primary font-bold border-l-4 border-secondary-container bg-surface-container-low" href="instructors.html">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Instructors</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors group" href="cohorts-courses.html">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">library_books</span>
+<span class="font-label-md text-label-md">Course & Cohort Management</span>
+</a>
+</nav>
+<div class="px-md mt-auto pt-lg border-t border-outline-variant">
+<button id="logoutBtn" class="flex items-center gap-md px-md py-sm text-error hover:bg-error-container/20 transition-colors w-full rounded-lg">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-[280px] min-h-screen pb-20 md:pb-0">
+<header class="sticky top-0 w-full z-40 flex justify-between items-center h-20 px-lg bg-surface-bright border-b border-outline-variant shadow-sm glass-header">
+<div class="flex items-center gap-md">
+<button class="md:hidden hover:bg-surface-container rounded-full p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-primary">Instructor Management</h2>
+</div>
+<button data-add-instructor class="hidden md:flex bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md items-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+Add Instructor
+</button>
+</header>
+<section class="p-md md:p-xl max-w-7xl mx-auto">
+<!-- Search -->
+<div class="mb-lg relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input id="searchInput" class="w-full pl-12 pr-4 py-3 bg-surface border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="Search instructors by name or email..." type="text"/>
+</div>
+<!-- Stats -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-md mb-lg">
+<div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+<p class="text-on-surface-variant font-label-md mb-1">Total Instructors</p>
+<p class="font-headline-md text-headline-md" id="totalCount">—</p>
+</div>
+<div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+<p class="text-on-surface-variant font-label-md mb-1">Active</p>
+<p class="font-headline-md text-headline-md text-secondary" id="activeCount">—</p>
+</div>
+<div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant">
+<p class="text-on-surface-variant font-label-md mb-1">Total Students Managed</p>
+<p class="font-headline-md text-headline-md text-primary" id="totalManaged">—</p>
+</div>
+</div>
+<!-- Mobile cards -->
+<div class="md:hidden space-y-md" id="mobileCards"></div>
+<!-- Desktop table -->
+<div class="hidden md:block bg-white rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-lg py-md font-label-md text-on-surface-variant">Instructor</th>
+<th class="px-lg py-md font-label-md text-on-surface-variant">Speciality</th>
+<th class="px-lg py-md font-label-md text-on-surface-variant">Students Assigned</th>
+<th class="px-lg py-md font-label-md text-on-surface-variant">Status</th>
+<th class="px-lg py-md font-label-md text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant" id="instructorsTableBody"></tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB mobile -->
+<button data-add-instructor class="fixed bottom-6 right-4 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl md:hidden flex items-center justify-center z-40">
+<span class="material-symbols-outlined text-[28px]">person_add</span>
+</button>
+
+<!-- Add Instructor Modal -->
+<div id="addInstructorModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">Add New Instructor</h3>
+      <button onclick="document.getElementById('addInstructorModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="addInstructorForm" onsubmit="addInstructor(event)" class="space-y-md">
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Full Name</label>
+        <input id="newName" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="e.g. Sarah Alabi"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Email</label>
+        <input id="newEmail" type="email" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="instructor@email.com"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Phone</label>
+        <input id="newPhone" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="08012345678"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Speciality</label>
+        <input id="newSpeciality" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="Frontend Development"/>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('addInstructorModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">
+          Cancel
+        </button>
+        <button type="submit" id="addInstructorBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">
+          Add Instructor
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- View Instructor Modal -->
+<div id="viewInstructorModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-xl max-h-[80vh] overflow-y-auto">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">Instructor Details</h3>
+      <button onclick="document.getElementById('viewInstructorModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="flex items-center gap-md mb-lg">
+      <div id="viewInitials" class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-2xl font-bold text-secondary-container">--</div>
+      <div>
+        <p id="viewName" class="font-headline-sm text-headline-sm text-primary">—</p>
+        <p id="viewEmail" class="font-body-sm text-on-surface-variant">—</p>
+        <p id="viewSpeciality" class="font-body-sm text-on-surface-variant">—</p>
+      </div>
+    </div>
+    <h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-sm">Assigned Students</h4>
+    <div id="viewStudentsList" class="space-y-sm"></div>
+  </div>
+</div>
+
+<script>
+  const API_URL = "https://kwil-management-system-backend.onrender.com/api";
+  const getToken = () => localStorage.getItem("kil_token");
+  const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
+
+  const user = getUser();
+  const token = getToken();
+  if (!token || !user || user.role !== "ADMIN") {
+    window.location.href = "index.html";
+  }
+
+  let allInstructors = [];
+
+  async function loadInstructors() {
+    try {
+      const res = await fetch(`${API_URL}/admin/users?role=INSTRUCTOR`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      allInstructors = data.users || [];
+      updateStats(allInstructors);
+      renderTable(allInstructors);
+      renderMobileCards(allInstructors);
+    } catch (err) {
+      console.error("Failed to load instructors:", err);
+    }
+  }
+
+  function getInitials(name) {
+    return name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+  }
+
+  function updateStats(instructors) {
+    const active = instructors.filter(i => i.status === "ACTIVE").length;
+    const totalManaged = instructors.reduce((sum, i) => sum + (i.instructor?.students?.length || 0), 0);
+    document.getElementById('totalCount').textContent = instructors.length;
+    document.getElementById('activeCount').textContent = active;
+    document.getElementById('totalManaged').textContent = totalManaged;
+  }
+
+  function renderTable(instructors) {
+    const tbody = document.getElementById('instructorsTableBody');
+    if (!instructors.length) {
+      tbody.innerHTML = `<tr><td colspan="5" class="px-lg py-xl text-center text-outline font-body-sm">No instructors found</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = instructors.map(i => `
+      <tr class="hover:bg-surface-container-lowest transition-colors group">
+        <td class="px-lg py-lg">
+          <div class="flex items-center gap-md">
+            <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center font-bold text-secondary-container text-sm shrink-0">
+              ${getInitials(i.fullName)}
+            </div>
+            <div>
+              <p class="font-label-md text-on-surface">${i.fullName}</p>
+              <p class="text-body-sm text-on-surface-variant">${i.email}</p>
+            </div>
+          </div>
+        </td>
+        <td class="px-lg py-lg"><span class="text-body-sm text-on-surface">${i.instructor?.speciality || "—"}</span></td>
+        <td class="px-lg py-lg"><span class="text-body-sm text-on-surface">${i.instructor?.students?.length || 0} students</span></td>
+        <td class="px-lg py-lg">
+          <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase ${i.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-error-container text-on-error-container'}">
+            ${i.status}
+          </span>
+        </td>
+        <td class="px-lg py-lg text-right">
+          <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button onclick="viewInstructor('${i.id}')" class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant" title="View Details">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+            <button onclick="toggleStatus('${i.id}', '${i.status}')" class="p-2 hover:bg-surface-container rounded-lg text-error" title="Toggle Status">
+              <span class="material-symbols-outlined">block</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  function renderMobileCards(instructors) {
+    const container = document.getElementById('mobileCards');
+    if (!instructors.length) {
+      container.innerHTML = `<p class="text-center text-outline font-body-sm py-xl">No instructors found</p>`;
+      return;
+    }
+    container.innerHTML = instructors.map(i => `
+      <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md">
+        <div class="flex justify-between items-start mb-md">
+          <div class="flex items-center gap-md">
+            <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center font-bold text-secondary-container text-sm">
+              ${getInitials(i.fullName)}
+            </div>
+            <div>
+              <h3 class="font-label-md text-on-surface">${i.fullName}</h3>
+              <p class="text-body-sm text-on-surface-variant">${i.instructor?.speciality || "No speciality"}</p>
+            </div>
+          </div>
+          <span class="px-2 py-1 rounded-lg text-[10px] font-bold uppercase ${i.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-error-container text-on-error-container'}">
+            ${i.status}
+          </span>
+        </div>
+        <p class="text-body-sm text-on-surface-variant mb-md">${i.instructor?.students?.length || 0} students assigned</p>
+        <div class="flex gap-md border-t border-outline-variant pt-md">
+          <button onclick="viewInstructor('${i.id}')" class="flex-1 py-2 text-center text-primary font-bold border border-primary rounded-lg text-label-md">View</button>
+          <button onclick="toggleStatus('${i.id}', '${i.status}')" class="flex-1 py-2 text-center text-on-primary bg-primary rounded-lg text-label-md">
+            ${i.status === 'ACTIVE' ? 'Deactivate' : 'Activate'}
+          </button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function viewInstructor(id) {
+    const i = allInstructors.find(x => x.id === id);
+    if (!i) return;
+    document.getElementById('viewInitials').textContent = getInitials(i.fullName);
+    document.getElementById('viewName').textContent = i.fullName;
+    document.getElementById('viewEmail').textContent = i.email;
+    document.getElementById('viewSpeciality').textContent = i.instructor?.speciality || "No speciality set";
+
+    const students = i.instructor?.students || [];
+    const list = document.getElementById('viewStudentsList');
+    list.innerHTML = students.length
+      ? students.map(s => `
+          <div class="flex items-center justify-between p-sm bg-surface-container-low rounded-lg">
+            <span class="font-body-sm text-on-surface">${s.user.fullName}</span>
+            <span class="text-body-sm text-on-surface-variant">${s.progress || 0}%</span>
+          </div>
+        `).join("")
+      : `<p class="text-body-sm text-on-surface-variant">No students assigned yet</p>`;
+
+    document.getElementById('viewInstructorModal').classList.remove('hidden');
+  }
+
+  async function toggleStatus(id, currentStatus) {
+    const action = currentStatus === "ACTIVE" ? "deactivate" : "activate";
+    if (!confirm(`Are you sure you want to ${action} this instructor?`)) return;
+    try {
+      const endpoint = currentStatus === "ACTIVE"
+        ? `${API_URL}/admin/users/${id}/deactivate`
+        : `${API_URL}/admin/users/${id}`;
+      const res = await fetch(endpoint, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: currentStatus !== "ACTIVE" ? JSON.stringify({ status: "ACTIVE" }) : null,
+      });
+      if (res.ok) loadInstructors();
+    } catch (err) {
+      console.error("Failed to update:", err);
+    }
+  }
+
+  async function addInstructor(e) {
+    e.preventDefault();
+    const btn = document.getElementById('addInstructorBtn');
+    btn.disabled = true;
+    btn.textContent = "Adding...";
+
+    const payload = {
+      fullName: document.getElementById('newName').value,
+      email: document.getElementById('newEmail').value,
+      phone: document.getElementById('newPhone').value,
+      role: "INSTRUCTOR",
+      speciality: document.getElementById('newSpeciality').value,
+    };
+
+    try {
+      const res = await fetch(`${API_URL}/admin/users`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        document.getElementById('addInstructorModal').classList.add('hidden');
+        document.getElementById('addInstructorForm').reset();
+        loadInstructors();
+      } else {
+        const data = await res.json();
+        alert(data.message || "Failed to add instructor");
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Add Instructor";
+    }
+  }
+
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = allInstructors.filter(i =>
+      i.fullName.toLowerCase().includes(query) ||
+      i.email.toLowerCase().includes(query)
+    );
+    renderTable(filtered);
+    renderMobileCards(filtered);
+  });
+
+  document.querySelectorAll('[data-add-instructor]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('addInstructorModal').classList.remove('hidden');
+    });
+  });
+
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem("kil_token");
+    localStorage.removeItem("kil_user");
+    window.location.href = "index.html";
+  });
+
+  const menuBtn = document.querySelector('header button');
+  const sidebar = document.getElementById('main-nav');
+  menuBtn?.addEventListener('click', () => {
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('flex');
+  });
+
+  loadInstructors();
+</script>
+</body></html>
