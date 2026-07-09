@@ -403,46 +403,48 @@
   }
 
   function renderDashboard(student, progress, assignments, announcements, attendanceSessions) {
-    const fullName = student.user.fullName;
-    const firstName = fullName.split(" ")[0];
-    const course = student.course || "No course assigned";
-    const cohort = student.cohort || "No cohort";
-    const progressVal = progress.progress || 0;
-    const matric = student.matricNumber || "—";
-    const instructor = progress.instructor;
+  const fullName = student.user.fullName;
+  const firstName = fullName.split(" ")[0];
+  const progressVal = progress.progress || 0;
+  const matric = student.matricNumber || "—";
 
-    // Welcome banner
-    document.getElementById('welcomeName').textContent = `Welcome back, ${firstName}!`;
-    document.getElementById('welcomeMsg').textContent =
-      `Your learning journey at Kwara Innovation Lab is ${progressVal}% complete. Keep up the great work in your ${course} module!`;
+  // Welcome banner
+  document.getElementById('welcomeName').textContent = `Welcome back, ${firstName}!`;
 
-    // Sidebar student info
-    document.getElementById('sidebarName').textContent = fullName;
-    document.getElementById('sidebarMatric').textContent = matric;
-    document.getElementById('sidebarInitials').textContent =
-      fullName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+  const courseNames = progress.courses?.map(c => c.name).join(", ") || "No course assigned";
+  document.getElementById('welcomeMsg').textContent =
+    `Your learning journey at Kwara Innovation Lab is ${progressVal}% complete. Keep up the great work in ${courseNames}!`;
 
-    // Course card
-    document.getElementById('courseName').textContent = course;
-    document.getElementById('courseSubtitle').textContent = `Cohort: ${cohort}`;
-    document.getElementById('progressBar').style.width = `${progressVal}%`;
-    document.getElementById('progressPercent').textContent = `${progressVal}%`;
-    document.getElementById('progressModules').textContent = `${progressVal}% completed`;
+  // Sidebar
+  document.getElementById('sidebarName').textContent = fullName;
+  document.getElementById('sidebarMatric').textContent = matric;
+  document.getElementById('sidebarInitials').textContent =
+    fullName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
 
-    // Instructor info
-    if (instructor) {
-      document.getElementById('instructorName').textContent = instructor.name;
-      document.getElementById('instructorEmail').textContent = instructor.email;
-    } else {
-      document.getElementById('instructorName').textContent = "No instructor assigned";
-      document.getElementById('instructorEmail').textContent = "—";
-    }
+  // Course card
+  document.getElementById('courseName').textContent = courseNames;
+  document.getElementById('courseSubtitle').textContent = `Cohort: ${progress.cohort || "—"}`;
+  document.getElementById('progressBar').style.width = `${progressVal}%`;
+  document.getElementById('progressPercent').textContent = `${progressVal}%`;
+  document.getElementById('progressModules').textContent = `${progressVal}% completed`;
 
-    renderUpcomingAssignment(assignments);
-    renderRecentAcademicRecords(assignments);
-    renderAnnouncements(announcements);
-    renderAttendance(attendanceSessions);
+  // Instructors
+  const allInstructors = progress.courses?.flatMap(c => c.instructors) || [];
+  const uniqueInstructors = [...new Map(allInstructors.map(i => [i.email, i])).values()];
+
+  if (uniqueInstructors.length) {
+    document.getElementById('instructorName').textContent = uniqueInstructors.map(i => i.name).join(", ");
+    document.getElementById('instructorEmail').textContent = uniqueInstructors.map(i => i.email).join(", ");
+  } else {
+    document.getElementById('instructorName').textContent = "No instructor assigned";
+    document.getElementById('instructorEmail').textContent = "—";
   }
+
+  renderUpcomingAssignment(assignments);
+  renderRecentAcademicRecords(assignments);
+  renderAnnouncements(announcements);
+  renderAttendance(attendanceSessions);
+}
 
   function renderUpcomingAssignment(assignments) {
     const pendingAssignments = assignments.filter(a => !a.submissions?.length || a.submissions[0].status === "PENDING");
