@@ -465,15 +465,15 @@ async function saveStudent(e) {
   btn.disabled = true;
   btn.textContent = "Saving...";
 
-  const selectedCourses = [...document.querySelectorAll('.edit-course-checkbox:checked')].map(cb => cb.value);
-
-  const payload = {
-    fullName: document.getElementById('editFullName').value,
-    phone: document.getElementById('editPhone').value,
-    cohort: document.getElementById('editCohort').value,
-    progress: parseInt(document.getElementById('editProgress').value),
-    courses: selectedCourses,
-  };
+ const selectedCourse = document.getElementById('newCourse').value;
+const payload = {
+  fullName: document.getElementById('newName').value,
+  email: document.getElementById('newEmail').value,
+  phone: document.getElementById('newPhone').value,
+  role: "STUDENT",
+  cohort: document.getElementById('newCohort').value,
+  courses: selectedCourse ? [selectedCourse] : [],
+};
 
   try {
     const res = await fetch(`${API_URL}/admin/users/${id}`, {
@@ -664,43 +664,6 @@ async function saveStudent(e) {
     renderTable(filtered);
     renderMobileCards(filtered);
   });
-  async function loadCatalog() {
-  try {
-    const [cohortsRes, coursesRes] = await Promise.all([
-      fetch(`${API_URL}/catalog/cohorts`, {
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-      fetch(`${API_URL}/catalog/courses`, {
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-    ]);
-
-    const [cohortsData, coursesData] = await Promise.all([
-      cohortsRes.json(),
-      coursesRes.json(),
-    ]);
-
-    // Populate cohort dropdown
-    const cohortSelect = document.getElementById('newCohort');
-    (cohortsData.cohorts || []).forEach(c => {
-      const option = document.createElement('option');
-      option.value = c.name;
-      option.textContent = `${c.name} (${c.status})`;
-      cohortSelect.appendChild(option);
-    });
-
-    // Populate course dropdown
-    const courseSelect = document.getElementById('newCourse');
-    (coursesData.courses || []).forEach(c => {
-      const option = document.createElement('option');
-      option.value = c.name;
-      option.textContent = c.name;
-      courseSelect.appendChild(option);
-    });
-  } catch (err) {
-    console.error("Failed to load catalog:", err);
-  }
-}
   // View student
   function viewStudent(userId) {
     window.location.href = `student-profile.html?id=${userId}`;
