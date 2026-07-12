@@ -669,7 +669,11 @@ const payload = {
     window.location.href = `student-profile.html?id=${userId}`;
   }
 
-  function openEditById(userId) {
+ async function openEditById(userId) {
+  // Make sure catalog is loaded first
+  if (allCourses.length === 0) {
+    await loadCatalog();
+  }
   const student = allStudents.find(s => s.id === userId);
   if (student) openEditStudent(student);
 }
