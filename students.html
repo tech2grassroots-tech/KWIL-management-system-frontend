@@ -589,9 +589,9 @@ const payload = {
             <button onclick="viewStudent('${s.id}')" class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant" title="View Details">
               <span class="material-symbols-outlined">visibility</span>
             </button>
-              <button onclick='openEditStudent(${JSON.stringify(s).replace(/'/g, "&apos;")})' class="p-2 hover:bg-surface-container rounded-lg text-primary" title="Edit Student">
-                <span class="material-symbols-outlined">edit</span>
-              </button>
+             <button onclick="openEditById('${s.id}')" class="p-2 hover:bg-surface-container rounded-lg text-primary" title="Edit Student">
+  <span class="material-symbols-outlined">edit</span>
+</button>
             <button onclick="deactivateStudent('${s.id}', '${s.status}')" class="p-2 hover:bg-surface-container rounded-lg text-error" title="Deactivate">
               <span class="material-symbols-outlined">block</span>
             </button>
@@ -668,6 +668,12 @@ const payload = {
   function viewStudent(userId) {
     window.location.href = `student-profile.html?id=${userId}`;
   }
+
+  function openEditById(userId) {
+  const student = allStudents.find(s => s.id === userId);
+  if (student) openEditStudent(student);
+}
+
 
   // Deactivate/Activate student
   async function deactivateStudent(userId, currentStatus) {
