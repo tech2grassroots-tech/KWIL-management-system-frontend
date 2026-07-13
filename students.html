@@ -670,11 +670,11 @@ const payload = {
   }
 
  async function openEditById(userId) {
-  // Make sure catalog is loaded first
   if (allCourses.length === 0) {
     await loadCatalog();
   }
   const student = allStudents.find(s => s.id === userId);
+  console.log("Found student:", JSON.stringify(student)); // ADD THIS
   if (student) openEditStudent(student);
 }
 
