@@ -463,21 +463,20 @@ function openEditStudent(student) {
 
 async function saveStudent(e) {
   e.preventDefault();
-  console.log("fullName at save time:", document.getElementById('editFullName').value);
-  console.log("cohort at save time:", document.getElementById('editCohort').value);
   const id = document.getElementById('editStudentId').value;
   const btn = document.getElementById('editStudentBtn');
   btn.disabled = true;
   btn.textContent = "Saving...";
 
- const selectedCourse = document.getElementById('newCourse').value;
-const payload = {
-  fullName: document.getElementById('editFullName').value,
-  phone: document.getElementById('editPhone').value,
-  cohort: document.getElementById('editCohort').value,
-  progress: parseInt(document.getElementById('editProgress').value) || 0,
-  courses: selectedCourses,
-};
+  const selectedCourses = [...document.querySelectorAll('.edit-course-checkbox:checked')].map(cb => cb.value);
+
+  const payload = {
+    fullName: document.getElementById('editFullName').value,
+    phone: document.getElementById('editPhone').value,
+    cohort: document.getElementById('editCohort').value,
+    progress: parseInt(document.getElementById('editProgress').value) || 0,
+    courses: selectedCourses,
+  };
 
   try {
     const res = await fetch(`${API_URL}/admin/users/${id}`, {
