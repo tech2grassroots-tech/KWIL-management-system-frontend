@@ -472,12 +472,11 @@ async function saveStudent(e) {
 
  const selectedCourse = document.getElementById('newCourse').value;
 const payload = {
-  fullName: document.getElementById('newName').value,
-  email: document.getElementById('newEmail').value,
-  phone: document.getElementById('newPhone').value,
-  role: "STUDENT",
-  cohort: document.getElementById('newCohort').value,
-  courses: selectedCourse ? [selectedCourse] : [],
+  fullName: document.getElementById('editFullName').value,
+  phone: document.getElementById('editPhone').value,
+  cohort: document.getElementById('editCohort').value,
+  progress: parseInt(document.getElementById('editProgress').value) || 0,
+  courses: selectedCourses,
 };
 
   try {
