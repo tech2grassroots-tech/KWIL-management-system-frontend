@@ -149,7 +149,7 @@ Add Instructor
 </button>
 
 <!-- Add Instructor Modal -->
-<div id="addInstructorModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+<div id="addInstructorModal" class="hidden fixed inset-0 bg-black/50ns z-50 flex items-center justify-center p-md">
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-xl">
     <div class="flex justify-between items-center mb-lg">
       <h3 class="font-headline-sm text-headline-sm text-primary">Add New Instructor</h3>
@@ -171,9 +171,15 @@ Add Instructor
         <input id="newPhone" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="08012345678"/>
       </div>
       <div>
-        <label class="font-label-md text-label-md text-on-surface block mb-xs">Speciality</label>
-        <input id="newSpeciality" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="Frontend Development"/>
-      </div>
+  <label class="font-label-md text-label-md text-on-surface block mb-xs">Speciality</label>
+  <input id="newSpeciality" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm" placeholder="e.g. Frontend Development"/>
+</div>
+<div>
+  <label class="font-label-md text-label-md text-on-surface block mb-xs">Courses (select all that apply)</label>
+  <div id="courseCheckboxes" class="space-y-sm max-h-48 overflow-y-auto border border-outline-variant rounded-lg p-md">
+    <p class="text-body-sm text-on-surface-variant">Loading courses...</p>
+  </div>
+</div>
       <div class="flex gap-md pt-sm">
         <button type="button" onclick="document.getElementById('addInstructorModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">
           Cancel
@@ -367,13 +373,16 @@ Add Instructor
     btn.disabled = true;
     btn.textContent = "Adding...";
 
-    const payload = {
-      fullName: document.getElementById('newName').value,
-      email: document.getElementById('newEmail').value,
-      phone: document.getElementById('newPhone').value,
-      role: "INSTRUCTOR",
-      speciality: document.getElementById('newSpeciality').value,
-    };
+    const selectedCourses = [...document.querySelectorAll('#courseCheckboxes input:checked')].map(cb => cb.value);
+
+const payload = {
+  fullName: document.getElementById('newName').value,
+  email: document.getElementById('newEmail').value,
+  phone: document.getElementById('newPhone').value,
+  role: "INSTRUCTOR",
+  speciality: document.getElementById('newSpeciality').value,
+  courses: selectedCourses,
+};
 
     try {
       const res = await fetch(`${API_URL}/admin/users`, {
