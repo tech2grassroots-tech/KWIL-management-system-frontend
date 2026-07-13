@@ -463,6 +463,8 @@ function openEditStudent(student) {
 
 async function saveStudent(e) {
   e.preventDefault();
+  console.log("fullName at save time:", document.getElementById('editFullName').value);
+  console.log("cohort at save time:", document.getElementById('editCohort').value);
   const id = document.getElementById('editStudentId').value;
   const btn = document.getElementById('editStudentBtn');
   btn.disabled = true;
