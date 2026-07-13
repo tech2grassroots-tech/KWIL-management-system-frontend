@@ -725,14 +725,15 @@ async function saveStudent(e) {
     btn.disabled = true;
     btn.textContent = "Adding...";
 
-    const payload = {
-      fullName: document.getElementById('newName').value,
-      email: document.getElementById('newEmail').value,
-      phone: document.getElementById('newPhone').value,
-      role: "STUDENT",
-      cohort: document.getElementById('newCohort').value,
-      course: document.getElementById('newCourse').value,
-    };
+    const selectedCourse = document.getElementById('newCourse').value;
+const payload = {
+  fullName: document.getElementById('newName').value,
+  email: document.getElementById('newEmail').value,
+  phone: document.getElementById('newPhone').value,
+  role: "STUDENT",
+  cohort: document.getElementById('newCohort').value,
+  courses: selectedCourse ? [selectedCourse] : [],
+};
 
     try {
       const res = await fetch(`${API_URL}/admin/users`, {
