@@ -433,6 +433,9 @@ function openEditStudent(student) {
   document.getElementById('editPhone').value = student.phone || "";
   document.getElementById('editProgress').value = student.student?.progress || 0;
 
+   console.log("Set fullName to:", student.fullName);
+  console.log("Field now reads:", document.getElementById('editFullName').value);
+
   // Populate cohort dropdown
   const cohortSelect = document.getElementById('editCohort');
   cohortSelect.innerHTML = '<option value="">Select cohort...</option>';
