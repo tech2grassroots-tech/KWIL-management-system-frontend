@@ -373,7 +373,7 @@ Add Instructor
     btn.disabled = true;
     btn.textContent = "Adding...";
 
-    const selectedCourses = [...document.querySelectorAll('#courseCheckboxes input:checked')].map(cb => cb.value);
+const selectedCourses = [...document.querySelectorAll('.instructor-course-checkbox:checked')].map(cb => cb.value);
 
 const payload = {
   fullName: document.getElementById('newName').value,
@@ -410,6 +410,34 @@ const payload = {
     }
   }
 
+
+  async function loadCatalog() {
+  try {
+    const res = await fetch(`${API_URL}/catalog/courses`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    const courses = data.courses || [];
+
+    const container = document.getElementById('courseCheckboxes');
+    if (!courses.length) {
+      container.innerHTML = `<p class="text-body-sm text-on-surface-variant">No courses created yet.</p>`;
+      return;
+    }
+
+    container.innerHTML = courses.map(c => `
+      <label class="flex items-center gap-sm cursor-pointer">
+        <input type="checkbox" value="${c.name}" class="instructor-course-checkbox w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary"/>
+        <span class="font-body-sm text-on-surface">${c.name}</span>
+      </label>
+    `).join("");
+  } catch (err) {
+    console.error("Failed to load courses:", err);
+    document.getElementById('courseCheckboxes').innerHTML = `<p class="text-body-sm text-error">Failed to load courses.</p>`;
+  }
+}
+
+
   document.getElementById('searchInput').addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase();
     const filtered = allInstructors.filter(i =>
@@ -440,5 +468,6 @@ const payload = {
   });
 
   loadInstructors();
+  loadCatalog();
 </script>
 </body></html>
