@@ -205,8 +205,8 @@
 <div class="md:col-span-2 glass-card rounded-xl p-lg shadow-sm flex flex-col justify-between border-l-4 border-primary-container">
 <div class="flex justify-between items-start mb-md">
 <div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Data Science Cohort B</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Progress toward Mid-Term Milestone</p>
+<h3 id="cohortTitle" class="font-headline-sm text-headline-sm text-on-surface">Loading...</h3>
+<p id="cohortSubtitle" class="font-body-sm text-body-sm text-on-surface-variant">Your assigned courses and students</p>
 </div>
 <span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">analytics</span>
 </div>
@@ -416,6 +416,11 @@
     document.getElementById('atRiskCount').textContent = atRisk;
     document.getElementById('cohortProgress').style.width = `${avgProgress}%`;
     document.getElementById('cohortProgressText').textContent = `${avgProgress}% Complete`;
+    const courseNames = [...new Set(students.flatMap(s => s.courses?.map(c => c.name) || []))];
+  document.getElementById('cohortTitle').textContent = courseNames.length
+    ? courseNames.join(", ")
+    : "No courses assigned yet";
+  document.getElementById('cohortSubtitle').textContent = `${total} student${total !== 1 ? 's' : ''} across your courses`
   }
 
   function renderTable(students) {
