@@ -139,9 +139,11 @@ New Assignment
         <textarea id="assignDescription" required rows="3" class="w-full px-md py-sm border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="Describe what students need to do"></textarea>
       </div>
       <div>
-        <label class="font-label-md text-label-md text-on-surface block mb-xs">Course</label>
-        <input id="assignCourse" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="Frontend Development"/>
-      </div>
+  <label class="font-label-md text-label-md text-on-surface block mb-xs">Course</label>
+  <select id="assignCourse" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm bg-white">
+    <option value="">Select course...</option>
+  </select>
+</div>
       <div>
         <label class="font-label-md text-label-md text-on-surface block mb-xs">Cohort</label>
         <input id="assignCohort" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none font-body-sm" placeholder="Cohort 2026"/>
@@ -318,12 +320,12 @@ New Assignment
     btn.textContent = "Posting...";
 
     const payload = {
-      title: document.getElementById('assignTitle').value,
-      description: document.getElementById('assignDescription').value,
-      course: document.getElementById('assignCourse').value,
-      cohort: document.getElementById('assignCohort').value,
-      dueDate: document.getElementById('assignDueDate').value,
-    };
+  title: document.getElementById('assignTitle').value,
+  description: document.getElementById('assignDescription').value,
+  courseId: document.getElementById('assignCourse').value,
+  cohort: document.getElementById('assignCohort').value,
+  dueDate: document.getElementById('assignDueDate').value,
+};
 
     try {
       const res = await fetch(`${API_URL}/instructor/assignments`, {
@@ -355,6 +357,25 @@ New Assignment
     document.getElementById('feedbackInput').value = submission.feedback || "";
     document.getElementById('gradeModal').classList.remove('hidden');
   }
+
+
+  async function loadCatalog() {
+  try {
+    const res = await fetch(`${API_URL}/catalog/courses`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    const courseSelect = document.getElementById('assignCourse');
+    (data.courses || []).forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = c.name;
+      courseSelect.appendChild(opt);
+    });
+  } catch (err) {
+    console.error("Failed to load courses:", err);
+  }
+}
 
   async function submitGrade(e) {
     e.preventDefault();
@@ -407,5 +428,6 @@ New Assignment
   });
 
   loadAssignments();
+loadCatalog();
 </script>
 </body></html>
