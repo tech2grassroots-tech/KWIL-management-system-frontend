@@ -214,6 +214,40 @@ Add Instructor
   </div>
 </div>
 
+<div id="editInstructorModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">Edit Instructor</h3>
+      <button onclick="document.getElementById('editInstructorModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="editInstructorForm" onsubmit="saveInstructor(event)" class="space-y-md">
+      <input type="hidden" id="editInstructorId"/>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Full Name</label>
+        <input id="editInstructorName" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Phone</label>
+        <input id="editInstructorPhone" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Speciality</label>
+        <input id="editInstructorSpeciality" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Courses</label>
+        <div id="editInstructorCourses" class="space-y-sm max-h-48 overflow-y-auto border border-outline-variant rounded-lg p-md"></div>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('editInstructorModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">Cancel</button>
+        <button type="submit" id="editInstructorBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
   const API_URL = "https://kwil-management-system-backend.onrender.com/api";
   const getToken = () => localStorage.getItem("kil_token");
@@ -226,6 +260,7 @@ Add Instructor
   }
 
   let allInstructors = [];
+  let allCourses = [];
 
   async function loadInstructors() {
     try {
@@ -285,6 +320,9 @@ Add Instructor
             <button onclick="viewInstructor('${i.id}')" class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant" title="View Details">
               <span class="material-symbols-outlined">visibility</span>
             </button>
+            <button onclick="openEditInstructor('${i.id}')" class="p-2 hover:bg-surface-container rounded-lg text-primary">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
             <button onclick="toggleStatus('${i.id}', '${i.status}')" class="p-2 hover:bg-surface-container rounded-lg text-error" title="Toggle Status">
               <span class="material-symbols-outlined">block</span>
             </button>
@@ -293,6 +331,67 @@ Add Instructor
       </tr>
     `).join("");
   }
+
+
+  function openEditInstructor(id) {
+  const instructor = allInstructors.find(i => i.id === id);
+  if (!instructor) return;
+
+  document.getElementById('editInstructorId').value = instructor.id;
+  document.getElementById('editInstructorName').value = instructor.fullName;
+  document.getElementById('editInstructorPhone').value = instructor.phone || "";
+  document.getElementById('editInstructorSpeciality').value = instructor.instructor?.speciality || "";
+
+  const currentCourses = instructor.instructor?.courses?.map(c => c.name) || [];
+  const container = document.getElementById('editInstructorCourses');
+  container.innerHTML = allCourses.map(c => `
+    <label class="flex items-center gap-sm cursor-pointer">
+      <input type="checkbox" value="${c.name}" class="edit-instructor-course-checkbox w-4 h-4 rounded border-outline-variant text-primary"
+        ${currentCourses.includes(c.name) ? 'checked' : ''}/>
+      <span class="font-body-sm text-on-surface">${c.name}</span>
+    </label>
+  `).join("");
+
+  document.getElementById('editInstructorModal').classList.remove('hidden');
+}
+
+async function saveInstructor(e) {
+  e.preventDefault();
+  const id = document.getElementById('editInstructorId').value;
+  const btn = document.getElementById('editInstructorBtn');
+  btn.disabled = true;
+  btn.textContent = "Saving...";
+
+  const selectedCourses = [...document.querySelectorAll('.edit-instructor-course-checkbox:checked')].map(cb => cb.value);
+
+  const payload = {
+    fullName: document.getElementById('editInstructorName').value,
+    phone: document.getElementById('editInstructorPhone').value,
+    speciality: document.getElementById('editInstructorSpeciality').value,
+    courses: selectedCourses,
+  };
+
+  try {
+    const res = await fetch(`${API_URL}/admin/users/${id}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      document.getElementById('editInstructorModal').classList.add('hidden');
+      loadInstructors();
+    } else {
+      const data = await res.json();
+      alert(data.message || "Failed to update instructor");
+    }
+  } catch (err) {
+    alert("Network error. Please try again.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save Changes";
+  }
+}
+
 
   function renderMobileCards(instructors) {
     const container = document.getElementById('mobileCards');
