@@ -299,7 +299,7 @@
                         </span>
 </div>
 <p class="font-label-md text-on-surface-variant mb-xs">Active Courses</p>
-<h4 class="font-headline-lg text-headline-lg text-primary">18</h4>
+<h4 class="font-headline-lg text-headline-lg text-primary" id="totalCourses"></h4>
 <p class="font-body-sm text-outline mt-sm">Current semester offerings</p>
 </div>
 <!-- Card 4: Current Cohort -->
@@ -312,8 +312,8 @@
 <span class="text-secondary-fixed-dim font-label-sm bg-white/10 px-sm py-1 rounded-full">Week 6</span>
 </div>
 <p class="font-label-md text-primary-fixed-dim mb-xs">Current Cohort</p>
-<h4 class="font-headline-lg text-headline-lg text-on-primary">Q3-2024</h4>
-<p class="font-body-sm text-on-primary/60 mt-sm">240 students enrolled</p>
+<h4 class="font-headline-lg text-headline-lg text-on-primary" id="currentCohort">—</h4>
+<p class="font-body-sm text-on-primary/60 mt-sm" id="cohortStudents">Loading...</p>
 </div>
 <!-- Decorative element for the dark card -->
 <div class="absolute bottom-[-20px] right-[-20px] opacity-10">
@@ -385,45 +385,11 @@
 <!-- Progress Card -->
 <div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30">
 <div class="flex justify-between items-center mb-lg">
-<h5 class="font-headline-sm text-headline-sm text-primary">Module Progress</h5>
-<span class="material-symbols-outlined text-on-surface-variant">info</span>
+  <h5 class="font-headline-sm text-headline-sm text-primary">Course Enrollment</h5>
+  <span class="material-symbols-outlined text-on-surface-variant">info</span>
 </div>
-<div class="space-y-md">
-<div class="space-y-xs">
-<div class="flex justify-between items-center">
-<p class="font-label-md text-on-surface">Web Development</p>
-<p class="font-label-sm text-secondary">78%</p>
-</div>
-<div class="w-full bg-surface-container rounded-full h-3">
-<div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: 78%"></div>
-</div>
-</div>
-<div class="space-y-xs">
-<div class="flex justify-between items-center">
-<p class="font-label-md text-on-surface">UI/UX Design</p>
-<p class="font-label-sm text-secondary">92%</p>
-</div>
-<div class="w-full bg-surface-container rounded-full h-3">
-<div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: 92%"></div>
-</div>
-</div>
-<div class="space-y-xs">
-<div class="flex justify-between items-center">
-<p class="font-label-md text-on-surface">Data Science</p>
-<p class="font-label-sm text-secondary">45%</p>
-</div>
-<div class="w-full bg-surface-container rounded-full h-3">
-<div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: 45%"></div>
-</div>
-</div>
-<div class="space-y-xs">
-<div class="flex justify-between items-center">
-<p class="font-label-md text-on-surface">Mobile Dev</p>
-<p class="font-label-sm text-secondary">61%</p>
-</div>
-<div class="w-full bg-surface-container rounded-full h-3">
-<div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: 61%"></div>
-</div>
+<div id="courseProgressList" class="space-y-md">
+  <p class="text-body-sm text-on-surface-variant">Loading...</p>
 </div>
 </div>
 <button class="w-full mt-lg py-sm border border-outline-variant text-on-surface-variant font-label-md rounded-lg hover:bg-surface-container transition-colors">
@@ -564,34 +530,45 @@
 
   // Fetch dashboard stats and admin announcements/attendance
   async function loadStats() {
-    try {
-      const [usersRes, announcementsRes, attendanceRes] = await Promise.all([
-        fetch(`${API_URL}/admin/users`, { headers: { Authorization: `Bearer ${token}` } }),
-        fetch(`${API_URL}/admin/announcements`, { headers: { Authorization: `Bearer ${token}` } }),
-        fetch(`${API_URL}/attendance/sessions`, { headers: { Authorization: `Bearer ${token}` } }),
-      ]);
+  try {
+    const [usersRes, announcementsRes, attendanceRes, coursesRes, cohortsRes] = await Promise.all([
+      fetch(`${API_URL}/admin/users`, { headers: { Authorization: `Bearer ${token}` } }),
+      fetch(`${API_URL}/admin/announcements`, { headers: { Authorization: `Bearer ${token}` } }),
+      fetch(`${API_URL}/attendance/sessions`, { headers: { Authorization: `Bearer ${token}` } }),
+      fetch(`${API_URL}/catalog/courses`, { headers: { Authorization: `Bearer ${token}` } }),
+      fetch(`${API_URL}/catalog/cohorts`, { headers: { Authorization: `Bearer ${token}` } }),
+    ]);
 
-      const [usersData, announcementsData, attendanceData] = await Promise.all([
-        usersRes.json(),
-        announcementsRes.json(),
-        attendanceRes.json(),
-      ]);
+    const [usersData, announcementsData, attendanceData, coursesData, cohortsData] = await Promise.all([
+      usersRes.json(),
+      announcementsRes.json(),
+      attendanceRes.json(),
+      coursesRes.json(),
+      cohortsRes.json(),
+    ]);
 
-      const students = usersData.users.filter(u => u.role === "STUDENT");
-      const instructors = usersData.users.filter(u => u.role === "INSTRUCTOR");
+    const students = usersData.users.filter(u => u.role === "STUDENT");
+    const instructors = usersData.users.filter(u => u.role === "INSTRUCTOR");
+    const courses = coursesData.courses || [];
+    const cohorts = cohortsData.cohorts || [];
+    const activeCohort = cohorts.find(c => c.status === "ACTIVE") || cohorts[0];
 
-      document.getElementById('totalStudents').textContent = students.length;
-      document.getElementById('totalInstructors').textContent = instructors.length;
+    document.getElementById('totalStudents').textContent = students.length;
+    document.getElementById('totalInstructors').textContent = instructors.length;
+    document.getElementById('totalCourses').textContent = courses.length;
+    document.getElementById('currentCohort').textContent = activeCohort?.name || "—";
+    document.getElementById('cohortStudents').textContent = `${students.filter(s => s.student?.cohort === activeCohort?.name).length} students enrolled`;
 
-      renderRecentStudents(students.slice(0, 5));
-      renderAnnouncements(announcementsData.announcements || []);
-      renderAttendanceSessions(attendanceData.sessions || []);
-    } catch (err) {
-      console.error("Failed to load stats:", err);
-      document.getElementById('announcementsList').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load announcements.</div>`;
-      document.getElementById('attendanceSessionsList').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load attendance sessions.</div>`;
-    }
+    renderRecentStudents(students.slice(0, 5));
+    renderAnnouncements(announcementsData.announcements || []);
+    renderAttendanceSessions(attendanceData.sessions || []);
+    renderModuleProgress(courses, students);
+  } catch (err) {
+    console.error("Failed to load stats:", err);
+    document.getElementById('announcementsList').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load announcements.</div>`;
+    document.getElementById('attendanceSessionsList').innerHTML = `<div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Unable to load attendance sessions.</div>`;
   }
+}
 
   function getInitials(name) {
     return name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
@@ -628,7 +605,7 @@
             </div>
           </div>
         </td>
-        <td class="px-lg py-md font-body-sm text-on-surface">${s.student?.course || "—"}</td>
+        <td class="px-lg py-md font-body-sm text-on-surface">${s.student?.courses?.map(c => c.name).join(", ") || "—"}</td>
         <td class="px-lg py-md">
           <span class="px-sm py-1 ${s.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'} rounded-full font-label-sm text-[11px] uppercase">
             ${s.status}
@@ -805,5 +782,39 @@
 
   // Load data on page load
   loadStats();
+
+  function renderModuleProgress(courses, students) {
+  const container = document.getElementById('courseProgressList');
+  if (!courses.length) {
+    container.innerHTML = `<p class="text-body-sm text-on-surface-variant">No courses yet.</p>`;
+    return;
+  }
+
+  // Count students per course
+  const courseCounts = {};
+  students.forEach(s => {
+    (s.student?.courses || []).forEach(c => {
+      courseCounts[c.name] = (courseCounts[c.name] || 0) + 1;
+    });
+  });
+
+  const maxCount = Math.max(...Object.values(courseCounts), 1);
+
+  container.innerHTML = courses.slice(0, 5).map(c => {
+    const count = courseCounts[c.name] || 0;
+    const pct = Math.round((count / maxCount) * 100);
+    return `
+      <div class="space-y-xs">
+        <div class="flex justify-between items-center">
+          <p class="font-label-md text-on-surface text-[13px]">${c.name}</p>
+          <p class="font-label-sm text-secondary">${count} student${count !== 1 ? 's' : ''}</p>
+        </div>
+        <div class="w-full bg-surface-container rounded-full h-3">
+          <div class="bg-secondary-container h-full rounded-full transition-all duration-1000" style="width: ${pct}%"></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
 </script>
 </body></html>
