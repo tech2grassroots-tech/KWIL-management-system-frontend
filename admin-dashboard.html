@@ -766,7 +766,7 @@
     btn.textContent = 'Recording...';
 
     try {
-      const res = await fetch(`${API_URL}/admin/attendance-sessions`, {
+      const res = await fetch(`${API_URL}/attendance/sessions`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
