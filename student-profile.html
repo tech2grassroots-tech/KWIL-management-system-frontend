@@ -276,23 +276,19 @@
 <div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden mb-lg">
   <div id="progressBar" class="h-full bg-secondary-container progress-bar-glow rounded-full transition-all duration-1000" style="width: 0%"></div>
 </div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
-<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
-<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Modules</p>
-<p class="font-headline-sm text-headline-sm text-primary">12/15</p>
-</div>
-<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
-<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Attend.</p>
-<p class="font-headline-sm text-headline-sm text-primary">94%</p>
-</div>
-<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
-<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Quizzes</p>
-<p class="font-headline-sm text-headline-sm text-primary">8.5/10</p>
-</div>
-<div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
-<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Projects</p>
-<p class="font-headline-sm text-headline-sm text-primary">04</p>
-</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-md">
+  <div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+    <p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Enrolled Courses</p>
+    <p id="enrolledCourses" class="font-headline-sm text-headline-sm text-primary">—</p>
+  </div>
+  <div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+    <p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Cohort</p>
+    <p id="studentCohortCard" class="font-headline-sm text-headline-sm text-primary">—</p>
+  </div>
+  <div class="p-md rounded-lg bg-surface-container-low border border-outline-variant">
+    <p class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Status</p>
+    <p id="studentStatusCard" class="font-headline-sm text-headline-sm text-primary">—</p>
+  </div>
 </div>
 </div>
 <!-- Assignment History Table -->
@@ -311,59 +307,12 @@
 <th class="px-lg py-sm font-label-md text-label-md text-on-surface-variant text-right">Score</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant">
-<tr class="hover:bg-surface-container transition-colors group">
-<td class="px-lg py-md">
-<div class="flex flex-col">
-<span class="font-body-md text-body-md text-primary font-semibold">Database Schema Design</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Module 4: Persistence</span>
-</div>
-</td>
-<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Oct 12, 2023</td>
-<td class="px-lg py-md">
-<span class="bg-green-100 text-green-800 px-sm py-1 rounded-full text-xs font-bold uppercase tracking-tight">Completed</span>
-</td>
-<td class="px-lg py-md text-right font-headline-sm text-headline-sm text-primary">95/100</td>
-</tr>
-<tr class="hover:bg-surface-container transition-colors group">
-<td class="px-lg py-md">
-<div class="flex flex-col">
-<span class="font-body-md text-body-md text-primary font-semibold">RESTful API Integration</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Module 5: Connectivity</span>
-</div>
-</td>
-<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Oct 28, 2023</td>
-<td class="px-lg py-md">
-<span class="bg-green-100 text-green-800 px-sm py-1 rounded-full text-xs font-bold uppercase tracking-tight">Completed</span>
-</td>
-<td class="px-lg py-md text-right font-headline-sm text-headline-sm text-primary">88/100</td>
-</tr>
-<tr class="hover:bg-surface-container transition-colors group">
-<td class="px-lg py-md">
-<div class="flex flex-col">
-<span class="font-body-md text-body-md text-primary font-semibold">State Management Strategy</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Module 6: Frontend</span>
-</div>
-</td>
-<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Nov 15, 2023</td>
-<td class="px-lg py-md">
-<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-sm py-1 rounded-full text-xs font-bold uppercase tracking-tight">Pending Review</span>
-</td>
-<td class="px-lg py-md text-right font-headline-sm text-headline-sm text-primary">--</td>
-</tr>
-<tr class="hover:bg-surface-container transition-colors group">
-<td class="px-lg py-md">
-<div class="flex flex-col">
-<span class="font-body-md text-body-md text-primary font-semibold">Deployment &amp; CI/CD Pipeline</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant">Module 7: DevOps</span>
-</div>
-</td>
-<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Nov 30, 2023</td>
-<td class="px-lg py-md">
-<span class="bg-surface-variant text-on-surface-variant px-sm py-1 rounded-full text-xs font-bold uppercase tracking-tight">Upcoming</span>
-</td>
-<td class="px-lg py-md text-right font-headline-sm text-headline-sm text-primary">--</td>
-</tr>
+<tbody class="divide-y divide-outline-variant" id="assignmentHistoryBody">
+  <tr>
+    <td colspan="4" class="px-lg py-xl text-center text-outline font-body-sm">
+      No assignments yet
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -407,25 +356,28 @@
   const getToken = () => localStorage.getItem("kil_token");
   const getUser = () => JSON.parse(localStorage.getItem("kil_user"));
 
-  // Protect page
   const user = getUser();
   const token = getToken();
   if (!token || !user || user.role !== "ADMIN") {
     window.location.href = "index.html";
   }
 
-  // Get student ID from URL
   const params = new URLSearchParams(window.location.search);
   const studentId = params.get("id");
   if (!studentId) window.location.href = "students.html";
 
-  // Load student profile
   async function loadStudent() {
     try {
-      const res = await fetch(`${API_URL}/admin/users/${studentId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
+      const [userRes, assignmentsRes] = await Promise.all([
+        fetch(`${API_URL}/admin/users/${studentId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch(`${API_URL}/admin/users/${studentId}/assignments`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }).catch(() => ({ ok: false })),
+      ]);
+
+      const data = await userRes.json();
       const s = data.user;
 
       if (!s) {
@@ -451,50 +403,48 @@
 
   function renderProfile(s) {
     const progress = s.student?.progress || 0;
+    const courses = s.student?.courses || [];
+    const courseNames = courses.map(c => c.name).join(", ") || "No course assigned";
+    const cohort = s.student?.cohort || "No cohort";
 
-    // Avatar initials
     document.getElementById('avatarInitials').textContent = getInitials(s.fullName);
-
-    // Basic info
     document.getElementById('studentName').textContent = s.fullName;
-    document.getElementById('studentCourse').textContent =
-      `${s.student?.course || "No course"} • ${s.student?.cohort || "No cohort"}`;
+    document.getElementById('studentCourse').textContent = `${courseNames} • ${cohort}`;
     document.getElementById('studentEmail').textContent = s.email;
     document.getElementById('studentPhone').textContent = s.phone || "Not provided";
-    document.getElementById('studentMatric').textContent =
-      s.student?.matricNumber || "Not assigned";
-    document.getElementById('studentStatus').textContent = s.status;
+    document.getElementById('studentMatric').textContent = s.student?.matricNumber || "Not assigned";
     document.getElementById('studentJoined').textContent = formatDate(s.createdAt);
+    document.getElementById('enrolledCourses').textContent = courses.length || "0";
+    document.getElementById('studentCohortCard').textContent = cohort;
+    document.getElementById('studentStatusCard').textContent = s.status;
 
-    // Status badge color
     const statusBadge = document.getElementById('studentStatusBadge');
     statusBadge.textContent = s.status;
-    statusBadge.className = `px-sm py-xs rounded-lg font-label-sm text-label-sm 
+    statusBadge.className = `px-sm py-xs rounded-lg font-label-sm text-label-sm
       ${s.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-error-container text-on-error-container'}`;
 
-    // Progress bar
     document.getElementById('progressBar').style.width = `${progress}%`;
     document.getElementById('progressPercent').textContent = `${progress}%`;
-    document.getElementById('progressLabel').textContent = `${progress}%`;
 
-    // Instructor
-    if (s.student?.instructor) {
+    // Instructors — get from courses
+    const allInstructors = courses.flatMap(c => c.instructors || []);
+    const uniqueInstructors = [...new Map(allInstructors.map(i => [i.id, i])).values()];
+
+    if (uniqueInstructors.length) {
       document.getElementById('instructorName').textContent =
-        s.student.instructor.user?.fullName || "Assigned";
+        uniqueInstructors.map(i => i.user?.fullName || "Instructor").join(", ");
       document.getElementById('instructorSpeciality').textContent =
-        s.student.instructor.speciality || "Instructor";
+        uniqueInstructors.map(i => i.speciality || "").filter(Boolean).join(", ") || "Instructor";
     } else {
       document.getElementById('instructorName').textContent = "Not assigned";
       document.getElementById('instructorSpeciality').textContent = "—";
     }
   }
 
-  // Back button
   document.getElementById('backBtn')?.addEventListener('click', () => {
     window.location.href = "students.html";
   });
 
-  // Deactivate button
   document.getElementById('deactivateBtn')?.addEventListener('click', async () => {
     if (!confirm("Are you sure you want to deactivate this student?")) return;
     try {
