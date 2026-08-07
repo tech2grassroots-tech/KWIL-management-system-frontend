@@ -282,12 +282,17 @@ let allInstructors = [];
   }
 
   function updateStats(instructors) {
-    const active = instructors.filter(i => i.status === "ACTIVE").length;
-    const totalManaged = instructors.reduce((sum, i) => sum + (i.instructor?.students?.length || 0), 0);
-    document.getElementById('totalCount').textContent = instructors.length;
-    document.getElementById('activeCount').textContent = active;
-    document.getElementById('totalManaged').textContent = totalManaged;
-  }
+  const active = instructors.filter(i => i.status === "ACTIVE").length;
+  const totalManaged = instructors.reduce((sum, i) => {
+    const studentIds = new Set(
+      (i.instructor?.courses || []).flatMap(c => (c.students || []).map(s => s.id))
+    );
+    return sum + studentIds.size;
+  }, 0);
+  document.getElementById('totalCount').textContent = instructors.length;
+  document.getElementById('activeCount').textContent = active;
+  document.getElementById('totalManaged').textContent = totalManaged;
+}
 
   function renderTable(instructors) {
     const tbody = document.getElementById('instructorsTableBody');
@@ -309,7 +314,7 @@ let allInstructors = [];
           </div>
         </td>
         <td class="px-lg py-lg"><span class="text-body-sm text-on-surface">${i.instructor?.speciality || "—"}</span></td>
-        <td class="px-lg py-lg"><span class="text-body-sm text-on-surface">${i.instructor?.students?.length || 0} students</span></td>
+        <td class="px-lg py-lg"><span class="text-body-sm text-on-surface">${getStudentCount(i)} students</span></td>
         <td class="px-lg py-lg">
           <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase ${i.status === 'ACTIVE' ? 'bg-green-100 text-green-700' : 'bg-error-container text-on-error-container'}">
             ${i.status}
@@ -332,6 +337,13 @@ let allInstructors = [];
     `).join("");
   }
 
+
+  function getStudentCount(instructor) {
+  const studentIds = new Set(
+    (instructor.instructor?.courses || []).flatMap(c => (c.students || []).map(s => s.id))
+  );
+  return studentIds.size;
+}
 
   function openEditInstructor(id) {
   const instructor = allInstructors.find(i => i.id === id);
@@ -415,7 +427,7 @@ async function saveInstructor(e) {
             ${i.status}
           </span>
         </div>
-        <p class="text-body-sm text-on-surface-variant mb-md">${i.instructor?.students?.length || 0} students assigned</p>
+       <p class="text-body-sm text-on-surface-variant mb-md">${getStudentCount(i)} students assigned</p>
         <div class="flex gap-md border-t border-outline-variant pt-md">
           <button onclick="viewInstructor('${i.id}')" class="flex-1 py-2 text-center text-primary font-bold border border-primary rounded-lg text-label-md">View</button>
           <button onclick="toggleStatus('${i.id}', '${i.status}')" class="flex-1 py-2 text-center text-on-primary bg-primary rounded-lg text-label-md">
@@ -427,26 +439,51 @@ async function saveInstructor(e) {
   }
 
   function viewInstructor(id) {
-    const i = allInstructors.find(x => x.id === id);
-    if (!i) return;
-    document.getElementById('viewInitials').textContent = getInitials(i.fullName);
-    document.getElementById('viewName').textContent = i.fullName;
-    document.getElementById('viewEmail').textContent = i.email;
-    document.getElementById('viewSpeciality').textContent = i.instructor?.speciality || "No speciality set";
+  const i = allInstructors.find(x => x.id === id);
+  if (!i) return;
+  document.getElementById('viewInitials').textContent = getInitials(i.fullName);
+  document.getElementById('viewName').textContent = i.fullName;
+  document.getElementById('viewEmail').textContent = i.email;
+  document.getElementById('viewSpeciality').textContent = i.instructor?.speciality || "No speciality set";
 
-    const students = i.instructor?.students || [];
-    const list = document.getElementById('viewStudentsList');
-    list.innerHTML = students.length
+  // Get unique students across all courses
+  const studentMap = new Map();
+  (i.instructor?.courses || []).forEach(c => {
+    (c.students || []).forEach(s => {
+      if (!studentMap.has(s.id)) studentMap.set(s.id, s);
+    });
+  });
+  const students = Array.from(studentMap.values());
+
+  // Show courses
+  const courses = i.instructor?.courses || [];
+  const list = document.getElementById('viewStudentsList');
+
+  list.innerHTML = `
+    <div class="mb-md">
+      <p class="font-label-md text-on-surface-variant uppercase tracking-wider text-[11px] mb-sm">Courses</p>
+      ${courses.length
+        ? courses.map(c => `
+            <div class="flex items-center justify-between p-sm bg-surface-container-low rounded-lg mb-xs">
+              <span class="font-body-sm text-on-surface">${c.name}</span>
+              <span class="text-[11px] text-on-surface-variant">${c.students?.length || 0} students</span>
+            </div>`).join("")
+        : `<p class="text-body-sm text-on-surface-variant">No courses assigned</p>`
+      }
+    </div>
+    <p class="font-label-md text-on-surface-variant uppercase tracking-wider text-[11px] mb-sm">Students (${students.length})</p>
+    ${students.length
       ? students.map(s => `
-          <div class="flex items-center justify-between p-sm bg-surface-container-low rounded-lg">
-            <span class="font-body-sm text-on-surface">${s.user.fullName}</span>
+          <div class="flex items-center justify-between p-sm bg-surface-container-low rounded-lg mb-xs">
+            <span class="font-body-sm text-on-surface">${s.user?.fullName || "Student"}</span>
             <span class="text-body-sm text-on-surface-variant">${s.progress || 0}%</span>
-          </div>
-        `).join("")
-      : `<p class="text-body-sm text-on-surface-variant">No students assigned yet</p>`;
+          </div>`).join("")
+      : `<p class="text-body-sm text-on-surface-variant">No students assigned yet</p>`
+    }
+  `;
 
-    document.getElementById('viewInstructorModal').classList.remove('hidden');
-  }
+  document.getElementById('viewInstructorModal').classList.remove('hidden');
+}
 
   async function toggleStatus(id, currentStatus) {
     const action = currentStatus === "ACTIVE" ? "deactivate" : "activate";
