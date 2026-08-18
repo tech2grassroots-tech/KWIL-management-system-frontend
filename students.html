@@ -323,6 +323,21 @@
     <option value="">Select course...</option>
   </select>
 </div>
+<div>
+  <label class="font-label-md text-label-md text-on-surface block mb-xs">Payment Status</label>
+  <select id="newPaymentStatus" onchange="togglePaymentFields()" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm bg-white">
+    <option value="PARTIAL">Partial Payment</option>
+    <option value="FULL">Full Payment</option>
+  </select>
+</div>
+<div>
+  <label class="font-label-md text-label-md text-on-surface block mb-xs">Total Fee (₦)</label>
+  <input id="newTotalFee" type="number" min="0" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+</div>
+<div>
+  <label class="font-label-md text-label-md text-on-surface block mb-xs">Amount Paid (₦)</label>
+  <input id="newAmountPaid" type="number" min="0" required class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+</div>
       <div class="flex gap-md pt-sm">
         <button type="button" onclick="document.getElementById('addStudentModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">
           Cancel
@@ -375,6 +390,38 @@
   </div>
 </div>
 
+<div id="updatePaymentModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-md">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-xl">
+    <div class="flex justify-between items-center mb-lg">
+      <h3 class="font-headline-sm text-headline-sm text-primary">Update Payment</h3>
+      <button onclick="document.getElementById('updatePaymentModal').classList.add('hidden')" class="p-2 hover:bg-surface-container rounded-full">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="updatePaymentForm" onsubmit="savePayment(event)" class="space-y-md">
+      <input type="hidden" id="paymentUserId"/>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Payment Status</label>
+        <select id="paymentStatusInput" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm bg-white">
+          <option value="PARTIAL">Partial Payment</option>
+          <option value="FULL">Full Payment</option>
+        </select>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Total Fee (₦)</label>
+        <input id="paymentTotalFee" type="number" min="0" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface block mb-xs">Amount Paid (₦)</label>
+        <input id="paymentAmountPaid" type="number" min="0" class="w-full h-11 px-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary outline-none font-body-sm"/>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="document.getElementById('updatePaymentModal').classList.add('hidden')" class="flex-1 h-11 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container">Cancel</button>
+        <button type="submit" id="savePaymentBtn" class="flex-1 h-11 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
   const API_URL = "https://kwil-management-system-backend.onrender.com/api";
@@ -392,6 +439,12 @@
 
     let allCourses = [];
 let allCohorts = [];
+
+document.getElementById('newTotalFee').addEventListener('input', () => {
+  if (document.getElementById('newPaymentStatus').value === "FULL") {
+    document.getElementById('newAmountPaid').value = document.getElementById('newTotalFee').value;
+  }
+});
 
 async function loadCatalog() {
   try {
@@ -424,6 +477,20 @@ async function loadCatalog() {
     });
   } catch (err) {
     console.error("Failed to load catalog:", err);
+  }
+}
+
+function togglePaymentFields() {
+  const status = document.getElementById('newPaymentStatus').value;
+  const paidInput = document.getElementById('newAmountPaid');
+  const totalInput = document.getElementById('newTotalFee');
+
+  if (status === "FULL") {
+    // amount paid auto-fills to total fee once total is entered
+    paidInput.value = totalInput.value;
+    paidInput.readOnly = true;
+  } else {
+    paidInput.readOnly = false;
   }
 }
 
@@ -595,6 +662,9 @@ async function saveStudent(e) {
              <button onclick="openEditById('${s.id}')" class="p-2 hover:bg-surface-container rounded-lg text-primary" title="Edit Student">
   <span class="material-symbols-outlined">edit</span>
 </button>
+<button onclick='openUpdatePayment(${JSON.stringify(s).replace(/'/g, "&apos;")})' class="p-2 hover:bg-surface-container rounded-lg text-secondary" title="Update Payment">
+  <span class="material-symbols-outlined">payments</span>
+</button>
             <button onclick="deactivateStudent('${s.id}', '${s.status}')" class="p-2 hover:bg-surface-container rounded-lg text-error" title="Deactivate">
               <span class="material-symbols-outlined">block</span>
             </button>
@@ -733,7 +803,12 @@ const payload = {
   role: "STUDENT",
   cohort: document.getElementById('newCohort').value,
   courses: selectedCourse ? [selectedCourse] : [],
+  paymentStatus: document.getElementById('newPaymentStatus').value,
+  totalFee: parseFloat(document.getElementById('newTotalFee').value) || 0,
+  amountPaid: parseFloat(document.getElementById('newAmountPaid').value) || 0,
 };
+
+
 
     try {
       const res = await fetch(`${API_URL}/admin/users`, {
@@ -765,7 +840,47 @@ const payload = {
       btn.textContent = "Add Student";
     }
   }
+function openUpdatePayment(student) {
+  document.getElementById('paymentUserId').value = student.id;
+  document.getElementById('paymentStatusInput').value = student.student?.paymentStatus || "PARTIAL";
+  document.getElementById('paymentTotalFee').value = student.student?.totalFee || 0;
+  document.getElementById('paymentAmountPaid').value = student.student?.amountPaid || 0;
+  document.getElementById('updatePaymentModal').classList.remove('hidden');
+}
 
+async function savePayment(e) {
+  e.preventDefault();
+  const id = document.getElementById('paymentUserId').value;
+  const btn = document.getElementById('savePaymentBtn');
+  btn.disabled = true;
+  btn.textContent = "Saving...";
+
+  const payload = {
+    paymentStatus: document.getElementById('paymentStatusInput').value,
+    totalFee: parseFloat(document.getElementById('paymentTotalFee').value) || 0,
+    amountPaid: parseFloat(document.getElementById('paymentAmountPaid').value) || 0,
+  };
+
+  try {
+    const res = await fetch(`${API_URL}/admin/users/${id}/payment`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      document.getElementById('updatePaymentModal').classList.add('hidden');
+      loadStudents();
+    } else {
+      const data = await res.json();
+      alert(data.message || "Failed to update payment");
+    }
+  } catch (err) {
+    alert("Network error. Please try again.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save";
+  }
+}
   loadStudents();
 loadCatalog();
 </script>
