@@ -590,7 +590,7 @@
   async function loadReceipt() {
   const content = document.getElementById('receiptContent');
   try {
-    const res = await fetch(`${API_URL}/students/receipt`, {
+    const res = await fetch(`${API_URL}/student/receipt`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
