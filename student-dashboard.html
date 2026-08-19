@@ -229,6 +229,15 @@
       <div class="py-lg px-lg rounded-2xl bg-surface-container text-on-surface-variant">Loading attendance sessions...</div>
     </div>
   </div>
+  <div class="bg-white rounded-2xl shadow-sm border border-outline-variant p-lg" id="receiptCard">
+  <div class="flex items-center justify-between mb-md">
+    <h3 class="font-headline-sm text-headline-sm text-primary">Payment Receipt</h3>
+    <span class="material-symbols-outlined text-secondary">receipt_long</span>
+  </div>
+  <div id="receiptContent">
+    <p class="font-body-sm text-on-surface-variant">Loading...</p>
+  </div>
+</div>
 </section>
 <!-- Bento Grid Layout -->
 <div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
@@ -276,6 +285,7 @@
 </button>
 </div>
 </div>
+
 <!-- Instructor Card -->
 <div class="md:col-span-5 bg-surface-container-lowest rounded-3xl p-lg shadow-sm border border-outline-variant flex flex-col">
   <div class="flex items-center gap-md mb-md">
@@ -576,6 +586,97 @@
     el.addEventListener('mouseup', () => el.style.transform = '');
     el.addEventListener('mouseleave', () => el.style.transform = '');
   });
+
+  async function loadReceipt() {
+  const content = document.getElementById('receiptContent');
+  try {
+    const res = await fetch(`${API_URL}/students/receipt`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+
+    if (res.status === 403) {
+      content.innerHTML = `
+        <div class="flex items-start gap-sm bg-surface-container rounded-lg p-md">
+          <span class="material-symbols-outlined text-outline">lock</span>
+          <div>
+            <p class="font-body-sm text-on-surface">Your receipt is locked.</p>
+            <p class="font-label-sm text-on-surface-variant mt-1">
+              Complete payment of ₦${data.amountRemaining.toLocaleString()} to unlock your receipt.
+            </p>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (!res.ok) {
+      content.innerHTML = `<p class="font-body-sm text-error">Couldn't load receipt.</p>`;
+      return;
+    }
+
+    window._receiptData = data;
+    content.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-body-sm text-on-surface">Payment complete</p>
+          <p class="font-label-sm text-on-surface-variant">₦${data.amountPaid.toLocaleString()} paid in full</p>
+        </div>
+        <button onclick="downloadReceipt()" class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px]">download</span> Download
+        </button>
+      </div>
+    `;
+  } catch (err) {
+    content.innerHTML = `<p class="font-body-sm text-error">Network error.</p>`;
+  }
+}
+function downloadReceipt() {
+  const r = window._receiptData;
+  if (!r) return;
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Payment Receipt - ${r.fullName}</title>
+      <style>
+        body { font-family: Arial, sans-serif; padding: 32px; color: #0b1c30; }
+        h1 { font-size: 24px; margin-bottom: 4px; }
+        p { color: #75777d; margin: 0 0 24px; }
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+        .badge { background: #feae2c; color: #6b4500; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        td { padding: 10px 8px; border: 1px solid #ddd; font-size: 14px; }
+        .label { font-weight: bold; width: 40%; background: #f1f5f9; }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <div>
+          <h1>Payment Receipt</h1>
+          <p>${r.fullName} • Matric: ${r.matricNumber}</p>
+        </div>
+        <span class="badge">KIL Management System</span>
+      </div>
+      <table>
+        <tr><td class="label">Course(s)</td><td>${r.courses.join(", ")}</td></tr>
+        <tr><td class="label">Amount Paid</td><td>₦${r.amountPaid.toLocaleString()}</td></tr>
+        <tr><td class="label">Total Fee</td><td>₦${r.totalFee.toLocaleString()}</td></tr>
+        <tr><td class="label">Status</td><td>Paid in Full</td></tr>
+        <tr><td class="label">Date Issued</td><td>${r.date}</td></tr>
+      </table>
+      <p style="margin-top:24px;font-size:12px;color:#aaa;">Generated on ${new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</p>
+    </body>
+    </html>
+  `;
+
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+  win.print();
+}
+loadReceipt();
 
   loadDashboard();
 </script>
