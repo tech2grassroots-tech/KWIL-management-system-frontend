@@ -635,6 +635,8 @@ function downloadReceipt() {
   const r = window._receiptData;
   if (!r) return;
 
+   const signatureUrl = `${window.location.origin}/assets/signature.jpeg`;
+
   const html = `
     <!DOCTYPE html>
     <html>
@@ -649,6 +651,9 @@ function downloadReceipt() {
         table { width: 100%; border-collapse: collapse; margin-top: 16px; }
         td { padding: 10px 8px; border: 1px solid #ddd; font-size: 14px; }
         .label { font-weight: bold; width: 40%; background: #f1f5f9; }
+        .signature-block { margin-top: 48px; display: flex; flex-direction: column; align-items: flex-start; }
+        .signature-block img { height: 60px; object-fit: contain; }
+        .signature-line { border-top: 1px solid #0b1c30; width: 220px; margin-top: 4px; padding-top: 6px; }
       </style>
     </head>
     <body>
@@ -666,6 +671,13 @@ function downloadReceipt() {
         <tr><td class="label">Status</td><td>Paid in Full</td></tr>
         <tr><td class="label">Date Issued</td><td>${r.date}</td></tr>
       </table>
+      <div class="signature-block">
+        <img src="${signatureUrl}" alt="Authorized Signature" />
+        <div class="signature-line">
+          <p style="margin:0;font-size:12px;color:#0b1c30;">Authorized Signatory</p>
+          <p style="margin:0;font-size:11px;color:#aaa;">Kwara Innovation Lab</p>
+        </div>
+      </div>
       <p style="margin-top:24px;font-size:12px;color:#aaa;">Generated on ${new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })}</p>
     </body>
     </html>
@@ -674,7 +686,12 @@ function downloadReceipt() {
   const win = window.open('', '_blank');
   win.document.write(html);
   win.document.close();
-  win.print();
+ // Wait for the signature image to load before triggering print,
+  // otherwise it may print blank on slower connections
+  const img = new Image();
+  img.onload = () => win.print();
+  img.onerror = () => win.print(); // print anyway if image fails
+  img.src = signatureUrl;
 }
 loadReceipt();
 
